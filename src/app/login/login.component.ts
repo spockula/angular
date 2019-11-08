@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LoginService } from './../services/login.service';
 import { User } from './User';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -13,8 +14,17 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
   userData: Array<object> = [];
   user = new User();
+  form: FormGroup;
+  email = new FormControl('', Validators.required);
+  password = new FormControl('', Validators.required);
 
-  constructor(private route: ActivatedRoute, private router: Router, private loginService: LoginService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private loginService: LoginService,
+    fb: FormBuilder) {
+      this.form = fb.group({
+        'email': this.email,
+        'password': this.password
+    });
+     }
 
   ngOnInit() {
     if (localStorage.getItem('cu')) {
@@ -27,9 +37,10 @@ export class LoginComponent implements OnInit {
 
   }
 
-  login(user) {
-    this.user.email = user.value.username;
-    this.user.passcode = user.value.password;
+  login(form) {
+    form = this.form;
+    this.user.email = form.value.email;
+    this.user.passcode = form.value.password;
     this.loginService.doLogin(this.user).subscribe((data: Array<object>) => {
       this.userData = data;
       console.log(data);

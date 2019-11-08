@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DepartmentService } from './../services/department.service';
 import { CompanyService } from './../services/company.service';
 import { Department } from './Department';
-import { NgForm } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-department',
@@ -14,17 +14,29 @@ export class DepartmentComponent implements OnInit {
   departments: Array<object> = [];
   companies: Array<object> = [];
   department = new Department();
+  form: FormGroup;
+  name = new FormControl('', Validators.required);
+  email = new FormControl('', Validators.required);
+  description = new FormControl('', Validators.required);
 
-  constructor(private departmentService: DepartmentService, private companyService: CompanyService) { }
+  constructor(private departmentService: DepartmentService, private companyService: CompanyService,
+    fb: FormBuilder) {
+      this.form = fb.group({
+        'name': this.name,
+        'email': this.email,
+        'description': this.description
+    });
+     }
 
   ngOnInit() {
     this.getDepartments();
     this.getCompanies();
   }
 
-  ngOnChanges(){
+  // tslint:disable-next-line: use-life-cycle-interface
+  /* ngOnChanges() {
     this.getCompanies();
-  }
+  } */
 
   public getDepartments() {
     this.departmentService.getCompanyDepartments().subscribe((data: Array<object>) => {
@@ -40,9 +52,10 @@ export class DepartmentComponent implements OnInit {
     });
   }
 
-  public createDepartment(department: NgForm) {
-    console.log(department.value);
-    this.department = department.value;
+  public createDepartment(form) {
+    form = this.form;
+    console.log(form.value);
+    this.department = form.value;
     this.departmentService.createDepartment(this.department).subscribe((response) => {
       console.log(response);
       this.department = new Department();

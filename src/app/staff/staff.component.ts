@@ -3,7 +3,7 @@ import { BranchService } from './../services/branch.service';
 import { CompanyService } from './../services/company.service';
 import { StaffService } from './../services/staff.service';
 import { Staff } from './Staff';
-import { NgForm } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { DepartmentService } from '../services/department.service';
@@ -24,16 +24,43 @@ export class StaffComponent implements OnInit {
   departments: Array<object> = [];
   allStaff: Array<object> = [];
   staff = new Staff();
-  genders = [{'gender': 'Male'}, {'gender': 'Female'}];
   companyId: any;
   currentUser: any;
   selectedFile: File;
   imagePreview: any;
+  form: FormGroup;
+  surname = new FormControl('', Validators.required);
+  genders = new FormControl([{'gender': 'Male'}, {'gender': 'Female'}], Validators.required);
+  othernames = new FormControl('', Validators.required);
+  branchId = new FormControl('', Validators.required);
+  email = new FormControl('', Validators.required);
+  phoneNo = new FormControl('', Validators.required);
+  staffId = new FormControl('', Validators.required);
+  role = new FormControl('', Validators.required);
+  date_of_birth = new FormControl('', Validators.required);
+  date_joined = new FormControl('', Validators.required);
+  line_manager_id = new FormControl('', Validators.required);
+  reporting_line_ids = new FormControl('', Validators.required);
+  department = new FormControl('', Validators.required);
 
   constructor(private branchService: BranchService, private companyService: CompanyService,
     private staffService: StaffService, private ngxService: NgxUiLoaderService,
     private departmentService: DepartmentService,
-     private actr: ActivatedRoute) {
+     private actr: ActivatedRoute, fb: FormBuilder) {
+      this.form = fb.group({
+        'surname': this.surname,
+        'othernames': this.othernames,
+        'branchId': this.branchId,
+        'email': this.email,
+        'phoneNo': this.phoneNo,
+        'gender': this.genders,
+        'staffId': this.staffId,
+        'role': this.role,
+        'date_of_birth': this.date_of_birth,
+        'date_joined': this.date_joined,
+        'line_manager_id': this.line_manager_id,
+        'reporting_line_ids': this.reporting_line_ids,
+        'department': this.department });
     // this.getBranches();
     // this.getCompanies();
     // this.getDepartments()
@@ -59,11 +86,11 @@ export class StaffComponent implements OnInit {
     // this.getBranches();
     // this.getDepartments()
     // this.getStaff();
-    /* this.companyId = '';
+     this.companyId = '';
     if (localStorage.getItem('cu')) {
       this.currentUser = JSON.parse(localStorage.getItem('cu'));
       this.companyId = this.currentUser['companyId'];
-    } */
+    }
   }
 
   public getBranches() {
@@ -94,10 +121,11 @@ export class StaffComponent implements OnInit {
   }
 
 
-  public createStaff(staff: NgForm) {
+  public createStaff(form) {
+    form = this.form;
     this.ngxService.start();
-    console.log(staff.value);
-    this.staff = staff.value;
+    console.log(form.value);
+    this.staff = form.value;
     let companyId = '';
     if (localStorage.getItem('cu')) {
       companyId = JSON.parse(localStorage.getItem('cu'))['companyId'];
@@ -125,7 +153,6 @@ export class StaffComponent implements OnInit {
     if ( /\.(csv|xlsx)$/i.test(this.selectedFile.name) === false  ) {
       alert('please choose a file in CSV or Excel format!');
     } else {
-      this.companyId = 'COY-A52AB';
     this.staffService.submitCsv(this.companyId, files).subscribe(csv => {
       if (csv) {
         console.log('sent', csv);

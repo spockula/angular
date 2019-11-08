@@ -12,7 +12,7 @@ export class BranchService {
   constructor(private httpClient: HttpClient) { }
 
   getBranches() {
-    return  this.httpClient.get(`${this.testUrl}/branch`);
+    return  this.httpClient.get(`${this.API_URL}/branch`);
   }
 
   getCompanyBranches() {

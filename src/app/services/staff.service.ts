@@ -12,11 +12,11 @@ export class StaffService {
   constructor(private httpClient: HttpClient) { }
 
   getAllStaff() {
-    return this.httpClient.get(`${this.API_URL}/staff`);
+    return this.httpClient.get(`${this.testUrl}/staff`);
   }
 
   createStaff(staff) {
-    return this.httpClient.post(`${this.API_URL}/staff/`, staff);
+    return this.httpClient.post(`${this.testUrl}/staff/`, staff);
   }
 
   getCompanyStaff() {
@@ -24,7 +24,7 @@ export class StaffService {
     if (localStorage.getItem('cu')) {
       companyId = JSON.parse(localStorage.getItem('cu'))['companyId'];
     }
-    return this.httpClient.get(`${this.API_URL}/staff/${companyId}/company`);
+    return this.httpClient.get(`${this.testUrl}/staff/${companyId}/company`);
   }
 
   getBranchStaff(branchId) {

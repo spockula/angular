@@ -34,11 +34,19 @@
             <div id="placeholder" class="card card card-default scrollspy">
               <div class="card-content">
                 <h4 class="card-title">Create New Staff</h4>
-                <form class="col s12" #staff="ngForm" (ngSubmit)="createStaff(staff)" novalidate>
+                <form class="col s12" [formGroup] = "form" (ngSubmit)="createStaff()" novalidate>
 
                   <div class="row">
                     <div class="input-field col s12">
-                      <input placeholder="BranchId" [(ngModel)]="staff.branchId" type="text" class="form-control"
+                      <input placeholder="Company ID" formControlName="companyId" type="text" class="form-control"
+                        name="companyId" id="companyId">
+                      <label for="companyId">Company ID</label>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input placeholder="Branch ID" formControlName="branchId" type="text" class="form-control"
                         name="branchId" id="branchId">
                       <label for="branchId">Branch ID</label>
                     </div>
@@ -46,7 +54,7 @@
 
                   <div class="row">
                     <div class="input-field col s12">
-                      <input placeholder="Staff Surname" [(ngModel)]="staff.surname" type="text" class="form-control"
+                      <input placeholder="Staff Surname" formControlName="surname" type="text" class="form-control"
                         name="surname" id="surname">
                       <label for="surname">Staff Surname</label>
                     </div>
@@ -54,7 +62,7 @@
 
                   <div class="row">
                     <div class="input-field col s12">
-                      <input placeholder="Staff Othernames" [(ngModel)]="staff.othernames" type="text"
+                      <input placeholder="Staff Othernames" formControlName="othernames" type="text"
                         class="form-control" name="othernames" id="othernames">
                       <label for="othernames">Staff Othernames</label>
                     </div>
@@ -63,7 +71,7 @@
 
                   <div class="row">
                     <div class="input-field col s12">
-                      <select [(ngModel)]="staff.gender" type="text" class="form-control" name="gender" id="gender">
+                      <select formControlName="gender" type="text" class="form-control" name="gender" id="gender">
                         <option value="" disabled selected>Choose Staff Gender</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
@@ -75,7 +83,7 @@
 
                   <div class="row">
                     <div class="input-field col s12">
-                      <input placeholder="Staff Email" [(ngModel)]="staff.email" type="text" class="form-control"
+                      <input placeholder="Staff Email" formControlName="email" type="text" class="form-control"
                         name="email" id="email">
                       <label for="email">Staff Email</label>
                     </div>
@@ -85,7 +93,7 @@
 
                   <div class="row">
                     <div class="input-field col s12">
-                      <input placeholder="Staff Phone" [(ngModel)]="staff.phoneNo" type="text" class="form-control"
+                      <input placeholder="Staff Phone" formControlName="phoneNo" type="text" class="form-control"
                         name="phoneNo" id="phoneNo">
                       <label for="phoneNo">Staff Phone</label>
                     </div>
@@ -109,7 +117,7 @@
                     </div>
                       <!-- <mat-form-field> -->
                         <div class="col">
-                            <input matInput [matDatepicker]="picker" placeholder="Date of Birth" [(ngModel)]="staff.date_of_birth"
+                            <input matInput [matDatepicker]="picker" placeholder="Date of Birth" formControlName="date_of_birth"
                             name="date_of_birth" id="date_of_birth">
                         </div>
                         <div class="col">
@@ -135,7 +143,7 @@
                        </div>
 
                            <div class="col">
-                               <input matInput [matDatepicker]="DJpicker" placeholder="Date Joined" [(ngModel)]="staff.date_joined"
+                               <input matInput [matDatepicker]="DJpicker" placeholder="Date Joined" formControlName="date_joined"
                                name="date_joined" id="date_joined">
                            </div>
                            <div class="col">
@@ -150,7 +158,7 @@
 
                   <!-- <div class="row">
                     <div class="input-field col s12">
-                      <input placeholder="Staff Date Joined" [(ngModel)]="staff.date_joined" type="date" class="form-control"
+                      <input placeholder="Staff Date Joined" formControlName="date_joined" type="date" class="form-control"
                         name="date_joined" id="date_joined">
                       <label for="date_joined">Staff Date Joined</label>
                     </div>
@@ -159,7 +167,7 @@
 
                   <!-- <div class="row">
                     <div class="input-field col s12">
-                      <input placeholder="Staff Department" [(ngModel)]="staff.department" type="text" class="form-control"
+                      <input placeholder="Staff Department" formControlName="department" type="text" class="form-control"
                         name="department" id="department">
                       <label for="department">Staff Department</label>
                     </div>
@@ -167,7 +175,7 @@
 
                  <div class="row">
                     <div class="input-field col s12">
-                      <input placeholder="Department ID" [(ngModel)]="staff.departmentId" type="text" class="form-control"
+                      <input placeholder="Department ID" formControlName="departmentId" type="text" class="form-control"
                         name="departmentId" id="departmentId">
                       <label for="departmentId">Department ID</label>
                     </div>
@@ -176,7 +184,7 @@
 
                   <div class="row">
                     <div class="input-field col s12">
-                      <input placeholder="Staff Role" [(ngModel)]="staff.role" type="text" class="form-control"
+                      <input placeholder="Staff Role" formControlName="role" type="text" class="form-control"
                         name="role" id="role">
                       <label for="role">Staff Role</label>
                     </div>
@@ -185,7 +193,7 @@
 
                   <div class="row">
                     <div class="input-field col s12">
-                      <input placeholder="Staff Line Manager Email" [(ngModel)]="staff.line_manager_id" type="text" class="form-control"
+                      <input placeholder="Staff Line Manager Email"formControlName="line_manager_id" type="text" class="form-control"
                         name="line_manager_id" id="line_manager_id">
                       <label for="line_manager_id">Staff Line Manager Email</label>
                     </div>
@@ -202,7 +210,7 @@
                   <div class="row">
                     <div class="row">
                       <div class="input-field col s12">
-                        <button class="btn cyan waves-effect waves-light right" type="submit" name="action">
+                        <button class="btn cyan waves-effect waves-light right" type="submit" [disabled]="!form.valid" name="action">
                           <i class="material-icons left">add_circle_outline</i>
                           Add Staff
                         </button>
@@ -222,7 +230,15 @@
             <div class="card">
               <div class="card-content">
                 <h4 class="card-title">Upload Staff Sheet Instead (CSV or Excel)</h4>
-                <form class="col s12" novalidate>
+                <form class="col s12" [formGroup] = "form" novalidate>
+
+                <div class="row">
+                    <div class="input-field col s12">
+                      <input placeholder="Company ID" formControlName="companyId" type="text" class="form-control"
+                        name="companyId" id="companyId">
+                      <label for="companyId">Company ID</label>
+                    </div>
+                  </div>
 
          <div>
           <button class="btn cyan waves-effect waves-light right" (click)="selectFile.click()">

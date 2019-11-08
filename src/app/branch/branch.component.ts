@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BranchService } from './../services/branch.service';
 import { CompanyService } from './../services/company.service';
 import { Branch } from './Branch';
-import { NgForm } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-branch',
@@ -11,11 +11,25 @@ import { NgForm } from '@angular/forms';
 })
 export class BranchComponent implements OnInit {
 
+  form: FormGroup;
   branches: Array<object> = [];
   companies: Array<object> = [];
   branch = new Branch();
+  branchName = new FormControl('', Validators.required);
+  phoneNo = new FormControl('', Validators.required);
+  branchId = new FormControl('', Validators.required);
+  email = new FormControl('', Validators.required);
+  address = new FormControl('', Validators.required);
 
-  constructor(private branchService: BranchService, private companyService: CompanyService) { }
+  constructor(private branchService: BranchService, private companyService: CompanyService, fb: FormBuilder) {
+    this.form = fb.group({
+      'branchName': this.branchName,
+      'phoneNo': this.phoneNo,
+      'branchId': this.branchId,
+      'email': this.email,
+      'address': this.address
+  });
+   }
 
   ngOnInit() {
     this.getBranches();
@@ -37,9 +51,10 @@ export class BranchComponent implements OnInit {
     });
   }
 
-  public createBranch(branch: NgForm) {
-    console.log(branch.value);
-    this.branch = branch.value;
+  public createBranch(form) {
+    form = this.form;
+    console.log(form.value);
+    this.branch = form.value;
     let companyId = '';
     if (localStorage.getItem('cu')) {
       companyId = JSON.parse(localStorage.getItem('cu'))['companyId'];

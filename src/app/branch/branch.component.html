@@ -33,45 +33,45 @@
             <div id="placeholder" class="card card card-default scrollspy">
               <div class="card-content">
                 <h4 class="card-title">Create New Branch</h4>
-                <form class="col s12" #branch="ngForm" (ngSubmit)="createBranch(branch)" novalidate>
+                <form class="col s12" [formGroup] = "form" (ngSubmit)="createBranch()" novalidate>
 
                   <div class="row">
                     <div class="input-field col s12">
-                      <input [(ngModel)]="branch.branchName" type="text" class="form-control" name="branchName" required
+                      <input formControlName = "branchName" type="text" class="form-control" name="branchName" required
                         id="branchName" placeholder="Branch Name">
-                      <label for="surname">Branch Name</label>
+                      <label for="branchName">Branch Name</label>
                     </div>
                   </div>
 
                   <div class="row">
                     <div class="input-field col s12">
-                      <input [(ngModel)]="branch.email" type="email" class="form-control" name="email" id="email" required
+                      <input formControlName="email" type="email" class="form-control" name="email" id="email" required
                         placeholder="Email">
-                      <label for="othernames">Branch Email</label>
+                      <label for="email">Branch Email</label>
                     </div>
                   </div>
 
 
                   <div class="row">
                     <div class="input-field col s12">
-                      <input [(ngModel)]="branch.phoneNo" type="number" class="form-control" name="phoneNo" id="phoneNo" required
+                      <input formControlName="phoneNo" type="number" class="form-control" name="phoneNo" id="phoneNo" required
                         placeholder="Branch Phone No">
-                      <label for="email">Branch Phone No</label>
+                      <label for="phone">Branch Phone No</label>
                     </div>
                   </div>
 
                   <div class="row">
                     <div class="input-field col s12">
-                      <input [(ngModel)]="branch.address" type="text" class="form-control" name="address" id="address" required
+                      <input formControlName="address" type="text" class="form-control" name="address" id="address" required
                         placeholder="Branch Address">
-                      <label for="phone">Branch Address</label>
+                      <label for="address">Branch Address</label>
                     </div>
                   </div>
 
                   <div class="row">
                     <div class="row">
                       <div class="input-field col s12">
-                        <button class="btn cyan waves-effect waves-light right" type="submit" name="action">
+                        <button class="btn cyan waves-effect waves-light right" type="submit" [disabled]="!form.valid" name="action">
                           <i class="material-icons left">add_circle_outline</i>
                           Add Branch
                         </button>
