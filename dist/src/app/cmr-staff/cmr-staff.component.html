@@ -1,0 +1,340 @@
+<app-top></app-top>
+<app-cmr-sidebar></app-cmr-sidebar>
+
+<!-- BEGIN: Page Main-->
+<div id="main">
+  <div class="row">
+    <div class="content-wrapper-before gradient-45deg-indigo-purple"></div>
+    <div class="breadcrumbs-dark pb-0 pt-4" id="breadcrumbs-wrapper">
+      <!-- Search for small screen-->
+      <div class="container">
+        <div class="row">
+          <div class="col s10 m6 l6">
+            <h5 class="breadcrumbs-title mt-0 mb-0">Staff</h5>
+            <ol class="breadcrumbs mb-0">
+              <li class="breadcrumb-item"><a href="/">Office People</a>
+              </li>
+              <li class="breadcrumb-item"><a href="/">Human Resources</a>
+              </li>
+              <li class="breadcrumb-item active">Staff
+              </li>
+            </ol>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col s12">
+      <div class="container">
+        <ngx-ui-loader></ngx-ui-loader>
+        <div class="row">
+
+          <div class="col s12 m6 l6">
+            <div id="placeholder" class="card card card-default scrollspy">
+              <div class="card-content">
+                <h4 class="card-title">Create New Staff</h4>
+                <form class="col s12" [formGroup] = "form" (ngSubmit)="createStaff()" novalidate>
+
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input placeholder="Company ID" formControlName="companyId" type="text" class="form-control"
+                        name="companyId" id="companyId">
+                      <label for="companyId">Company ID</label>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input placeholder="Branch ID" formControlName="branchId" type="text" class="form-control"
+                        name="branchId" id="branchId">
+                      <label for="branchId">Branch ID</label>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input placeholder="Staff Surname" formControlName="surname" type="text" class="form-control"
+                        name="surname" id="surname">
+                      <label for="surname">Staff Surname</label>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input placeholder="Staff Othernames" formControlName="othernames" type="text"
+                        class="form-control" name="othernames" id="othernames">
+                      <label for="othernames">Staff Othernames</label>
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <select formControlName="gender" type="text" class="form-control" name="gender" id="gender">
+                        <option value="" disabled selected>Choose Staff Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                      </select>
+                      <label for="gender">Staff Gender</label>
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input placeholder="Staff Email" formControlName="email" type="text" class="form-control"
+                        name="email" id="email">
+                      <label for="email">Staff Email</label>
+                    </div>
+                  </div>
+
+
+
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input placeholder="Staff Phone" formControlName="phoneNo" type="text" class="form-control"
+                        name="phoneNo" id="phoneNo">
+                      <label for="phoneNo">Staff Phone</label>
+                    </div>
+                  </div>
+
+
+                  <!-- <div class="row">
+                    <div class="input-field col s12">
+                      <input placeholder="Staff Address" [(ngModel)]="staff.address" type="text" class="form-control"
+                        name="address" id="address">
+                      <label for="address">Staff Address</label>
+                    </div>
+                  </div> -->
+
+
+                  <div class="row">
+                   <div class="input-field">
+
+                    <div class="row">
+                        <label for="date_of_birth">Staff Date of Birth</label>
+                    </div>
+                      <!-- <mat-form-field> -->
+                        <div class="col">
+                            <input matInput [matDatepicker]="picker" placeholder="Date of Birth" formControlName="date_of_birth"
+                            name="date_of_birth" id="date_of_birth">
+                        </div>
+                        <div class="col">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker startView="year" [startAt]="DOBstartDate"></mat-datepicker>
+                        </div>
+
+
+                        <!-- </mat-form-field> -->
+                      <!--  <input placeholder="Staff Date of Birth" [(ngModel)]="staff.date_of_birth" type="date" class="form-control"
+                        name="date_of_birth" id="date_of_birth">
+                      <label for="date_of_birth">Staff Date of Birth</label>-->
+
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                      <div class="input-field">
+
+                       <div class="row">
+                           <label for="date_joined">Staff Date Joined</label>
+                       </div>
+
+                           <div class="col">
+                               <input matInput [matDatepicker]="DJpicker" placeholder="Date Joined" formControlName="date_joined"
+                               name="date_joined" id="date_joined">
+                           </div>
+                           <div class="col">
+                               <mat-datepicker-toggle matSuffix [for]="DJpicker"></mat-datepicker-toggle>
+                               <mat-datepicker #DJpicker startView="year" [startAt]="DateJoinedStartDate"></mat-datepicker>
+                           </div>
+                       </div>
+                     </div>
+
+
+
+
+                  <!-- <div class="row">
+                    <div class="input-field col s12">
+                      <input placeholder="Staff Date Joined" formControlName="date_joined" type="date" class="form-control"
+                        name="date_joined" id="date_joined">
+                      <label for="date_joined">Staff Date Joined</label>
+                    </div>
+                  </div> -->
+
+
+                  <!-- <div class="row">
+                    <div class="input-field col s12">
+                      <input placeholder="Staff Department" formControlName="department" type="text" class="form-control"
+                        name="department" id="department">
+                      <label for="department">Staff Department</label>
+                    </div>
+                  </div> -->
+
+                 <div class="row">
+                    <div class="input-field col s12">
+                      <input placeholder="Department ID" formControlName="departmentId" type="text" class="form-control"
+                        name="departmentId" id="departmentId">
+                      <label for="departmentId">Department ID</label>
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input placeholder="Staff Role" formControlName="role" type="text" class="form-control"
+                        name="role" id="role">
+                      <label for="role">Staff Role</label>
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input placeholder="Staff Line Manager Email"formControlName="line_manager_id" type="text" class="form-control"
+                        name="line_manager_id" id="line_manager_id">
+                      <label for="line_manager_id">Staff Line Manager Email</label>
+                    </div>
+                  </div>
+
+                  <!-- <mat-form-field>
+                      <input matInput [matDatepicker]="picker" placeholder="Date Joined">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field> -->
+
+
+
+                  <div class="row">
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <button class="btn cyan waves-effect waves-light right" type="submit" [disabled]="!form.valid" name="action">
+                          <i class="material-icons left">add_circle_outline</i>
+                          Add Staff
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="row">
+          <div class="col s12">
+            <div class="card">
+              <div class="card-content">
+                <h4 class="card-title">Upload Staff Sheet Instead (CSV or Excel)</h4>
+                <form class="col s12" [formGroup] = "form" novalidate>
+
+                <div class="row">
+                    <div class="input-field col s12">
+                      <input placeholder="Company ID" formControlName="companyId" type="text" class="form-control"
+                        name="companyId" id="companyId">
+                      <label for="companyId">Company ID</label>
+                    </div>
+                  </div>
+
+         <div>
+          <button class="btn cyan waves-effect waves-light right" (click)="selectFile.click()">
+                          <i class="material-icons left">add_circle_outline</i>
+                          Select File and Upload
+                        </button>
+          </div>
+
+        <div class="row">
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input style="display: none" type="file" (change)="uploadFile($event)" #selectFile>
+                      </div>
+                    </div>
+                  </div>
+
+              <div class="image-preview" >
+            <img [src]="imagePreview" >
+            </div>
+
+          </form >
+
+          </div>
+           </div>
+           </div>
+            </div>
+
+
+
+        <div class="row">
+          <div class="col s12">
+            <div class="card">
+              <div class="card-content">
+                <h4 class="card-title">Your Staff</h4>
+                <div class="row">
+                  <div class="col s12">
+                    <table id="page-length-option" class="display">
+                      <thead>
+                        <tr>
+                          <th>Staff ID</th>
+                        <th>Surname</th>
+                        <th>Othernames</th>
+                        <th>Email</th>
+                        <th>Phone No</th>
+                        <th>Gender</th>
+                        <th>Role</th>
+                        <th>Department</th>
+                        <th>Date of Birth</th>
+                        <th>Date Joined</th>
+                        <th>Line Manager</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let staff of allStaff['data']">
+                          <td>{{staff.staffId}}</td>
+                          <td>{{staff.surname}}</td>
+                          <td>{{staff.othernames}}</td>
+                          <td>{{staff.email}}</td>
+                          <td>{{staff.phoneNo}}</td>
+                          <td>{{staff.gender}}</td>
+                          <td>{{staff.role}}</td>
+                          <td>{{staff.department}}</td>
+                          <td>{{staff.date_of_birth}}</td>
+                          <td>{{staff.date_joined}}</td>
+                          <td>{{staff.line_manager_id}}</td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <th>Staff ID</th>
+                          <th>Surname</th>
+                          <th>Othernames</th>
+                          <th>Email</th>
+                          <th>Phone No</th>
+                          <th>Gender</th>
+                          <th>Role</th>
+                          <th>Department</th>
+                          <th>Date of Birth</th>
+                          <th>Date Joined</th>
+                          <th>Line Manager</th>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END: Page Main-->
+
+
+<app-footer></app-footer>
+
