@@ -40,7 +40,6 @@ export class CmrLoginComponent implements OnInit {
         console.log(data);
         if (data['errorCode'] === 200) {
           const _data = data['message'];
-
           console.log(_data);
           localStorage.setItem('cu', JSON.stringify(_data));
           this.router.navigate([this.returnUrl]);
