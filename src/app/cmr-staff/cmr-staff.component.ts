@@ -56,7 +56,8 @@ export class CmrStaffComponent implements OnInit {
         'role': this.role,
         'date_of_birth': this.date_of_birth,
         'date_joined': this.date_joined,
-        'departmentId': this.departmentId
+        'departmentId': this.departmentId,
+        'about': this.companyId
     });
     // this.getBranches();
     // this.getCompanies();
@@ -123,8 +124,6 @@ export class CmrStaffComponent implements OnInit {
     form = this.form;
     console.log('this is form value', form.value);
     this.staff = form.value;
-    const about = this.companyId;
-    this.staff['about'] = about;
 
     this.staffService.createStaff(this.staff).subscribe((response) => {
       console.log('this is response', response);

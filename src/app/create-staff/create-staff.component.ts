@@ -28,6 +28,7 @@ export class CreateStaffComponent implements OnInit {
   currentUser: any;
   selectedFile: File;
   imagePreview: any;
+  companyId = '';
   form: FormGroup;
   surname = new FormControl('', Validators.required);
   genders = new FormControl([{'gender': 'Male'}, {'gender': 'Female'}], Validators.required);
@@ -60,7 +61,9 @@ export class CreateStaffComponent implements OnInit {
         'date_joined': this.date_joined,
         'line_manager_id': this.line_manager_id,
         'reporting_line_ids': this.reporting_line_ids,
-        'departmentId': this.departmentId
+        'departmentId': this.departmentId,
+        'about': this.companyId,
+        'companyId': this.companyId
     });
     // this.getBranches();
     // this.getCompanies();
@@ -78,6 +81,9 @@ export class CreateStaffComponent implements OnInit {
 
 
   ngOnInit() {
+    if (localStorage.getItem('cu')) {
+      this.companyId = JSON.parse(localStorage.getItem('cu'))['companyId'];
+    }
     this.getBranches();
     this.getStaff();
   }
@@ -120,12 +126,6 @@ export class CreateStaffComponent implements OnInit {
     this.ngxService.start();
     console.log(form.value);
     this.staff = form.value;
-    let companyId = '';
-    if (localStorage.getItem('cu')) {
-      companyId = JSON.parse(localStorage.getItem('cu'))['companyId'];
-    }
-    this.staff['about'] = companyId;
-    this.staff['companyId'] = companyId;
 
     this.staffService.createStaff(this.staff).subscribe((response) => {
       console.log(response);
