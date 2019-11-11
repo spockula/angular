@@ -17,7 +17,6 @@ export class BranchComponent implements OnInit {
   branch = new Branch();
   branchName = new FormControl('', Validators.required);
   phoneNo = new FormControl('', Validators.required);
-  branchId = new FormControl('', Validators.required);
   email = new FormControl('', Validators.required);
   address = new FormControl('', Validators.required);
 
@@ -25,7 +24,6 @@ export class BranchComponent implements OnInit {
     this.form = fb.group({
       'branchName': this.branchName,
       'phoneNo': this.phoneNo,
-      'branchId': this.branchId,
       'email': this.email,
       'address': this.address
   });

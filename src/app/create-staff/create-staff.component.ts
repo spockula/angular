@@ -79,6 +79,7 @@ export class CreateStaffComponent implements OnInit {
 
   ngOnInit() {
     this.getBranches();
+    this.getStaff();
   }
 
   public getBranches() {

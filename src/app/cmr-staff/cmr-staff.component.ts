@@ -80,9 +80,9 @@ export class CmrStaffComponent implements OnInit {
 
   // }
   ngOnInit() {
-     this.getBranches();
+     // this.getBranches();
     // this.getDepartments()
-    // this.getStaff();
+    this.getStaff();
   }
 
   public getBranches() {
@@ -110,7 +110,7 @@ export class CmrStaffComponent implements OnInit {
 
   public getStaff() {
     this.ngxService.start();
-    this.staffService.getCompanyStaff().subscribe((data: Array<object>) => {
+    this.staffService.getAllStaff().subscribe((data: Array<object>) => {
       this.allStaff = data;
       console.log(data);
       this.ngxService.stop();
