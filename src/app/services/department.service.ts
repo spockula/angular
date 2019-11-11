@@ -16,11 +16,6 @@ export class DepartmentService {
   }
 
   createDepartment(department) {
-    let companyId = '';
-    if (localStorage.getItem('cu')) {
-      companyId = JSON.parse(localStorage.getItem('cu'))['companyId'];
-    }
-    department['companyId'] = companyId;
     return  this.httpClient.post(`${this.API_URL}/department/`, department);
 }
 

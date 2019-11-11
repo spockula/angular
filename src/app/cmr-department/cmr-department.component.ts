@@ -5,12 +5,11 @@ import { Department } from './Department';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
-  selector: 'app-department',
-  templateUrl: './department.component.html',
-  styleUrls: ['./department.component.css']
+  selector: 'app-cmr-department',
+  templateUrl: './cmr-department.component.html',
+  styleUrls: ['./cmr-department.component.css']
 })
-export class DepartmentComponent implements OnInit {
-
+export class CmrDepartmentComponent implements OnInit {
   departments: Array<object> = [];
   companies: Array<object> = [];
   department = new Department();
@@ -18,28 +17,25 @@ export class DepartmentComponent implements OnInit {
   name = new FormControl('', Validators.required);
   email = new FormControl('', Validators.required);
   description = new FormControl('', Validators.required);
+  companyId = new FormControl('', Validators.required);
 
-  constructor(private departmentService: DepartmentService, private companyService: CompanyService,
-    fb: FormBuilder) {
-      this.form = fb.group({
-        'name': this.name,
-        'email': this.email,
-        'description': this.description
-    });
-     }
+
+  constructor(private departmentService: DepartmentService, private companyService: CompanyService,fb: FormBuilder) { 
+    this.form = fb.group({
+      'name': this.name,
+      'email': this.email,
+      'description': this.description,
+      'companyId': this.companyId
+  });
+  }
 
   ngOnInit() {
     this.getDepartments();
     this.getCompanies();
   }
 
-  // tslint:disable-next-line: use-life-cycle-interface
-  /* ngOnChanges() {
-    this.getCompanies();
-  } */
-
   public getDepartments() {
-    this.departmentService.getCompanyDepartments().subscribe((data: Array<object>) => {
+    this.departmentService.getDepartments().subscribe((data: Array<object>) => {
       this.departments = data;
       console.log(data);
     });
@@ -56,11 +52,6 @@ export class DepartmentComponent implements OnInit {
     form = this.form;
     console.log(form.value);
     this.department = form.value;
-    let companyId = '';
-    if (localStorage.getItem('cu')) {
-      companyId = JSON.parse(localStorage.getItem('cu'))['companyId'];
-    }
-    this.department['companyId'] = companyId;
     this.departmentService.createDepartment(this.department).subscribe((response) => {
       console.log(response);
       this.department = new Department();

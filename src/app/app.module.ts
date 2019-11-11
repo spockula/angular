@@ -14,7 +14,6 @@ import { routing } from './app.routing';
 import { AuthGuard } from './_guards';
 import { CompanyComponent } from './company/company.component';
 import { BranchComponent } from './branch/branch.component';
-import { StaffComponent } from './staff/staff.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -41,6 +40,9 @@ import { LeaveComponent } from './leave/leave.component';
 import { AdminRegisterComponent } from './admin-register/admin-register.component';
 import { CompanyRegisterComponent } from './company-register/company-register.component';
 import { CmrStaffComponent } from './cmr-staff/cmr-staff.component';
+import { CmrBranchesComponent } from './cmr-branches/cmr-branches.component';
+import { CmrDepartmentComponent } from './cmr-department/cmr-department.component';
+import { CreateStaffComponent } from './create-staff/create-staff.component';
 
 
 @NgModule({
@@ -52,7 +54,6 @@ import { CmrStaffComponent } from './cmr-staff/cmr-staff.component';
     HomeComponent,
     CompanyComponent,
     BranchComponent,
-    StaffComponent,
     LoginComponent,
     RegisterComponent,
     NotFoundComponent,
@@ -68,6 +69,9 @@ import { CmrStaffComponent } from './cmr-staff/cmr-staff.component';
     AdminRegisterComponent,
     CompanyRegisterComponent,
     CmrStaffComponent,
+    CmrBranchesComponent,
+    CmrDepartmentComponent,
+    CreateStaffComponent,
   ],
   imports: [
     ReactiveFormsModule,

@@ -10,12 +10,13 @@ import { DepartmentService } from '../services/department.service';
 import { ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/map';
 
+
 @Component({
-  selector: 'app-cmr-staff',
-  templateUrl: './cmr-staff.component.html',
-  styleUrls: ['./cmr-staff.component.css']
+  selector: 'app-create-staff',
+  templateUrl: './create-staff.component.html',
+  styleUrls: ['./create-staff.component.css']
 })
-export class CmrStaffComponent implements OnInit {
+export class CreateStaffComponent implements OnInit {
   DOBstartDate = new Date(1990, 0, 1);
   DateJoinedStartDate = new Date(2000, 0, 1);
 
@@ -32,14 +33,16 @@ export class CmrStaffComponent implements OnInit {
   genders = new FormControl([{'gender': 'Male'}, {'gender': 'Female'}], Validators.required);
   othernames = new FormControl('', Validators.required);
   branchId = new FormControl('', Validators.required);
-  companyId = new FormControl('', Validators.required);
   email = new FormControl('', Validators.required);
   phoneNo = new FormControl('', Validators.required);
   role = new FormControl('', Validators.required);
   date_of_birth = new FormControl('', Validators.required);
   date_joined = new FormControl('', Validators.required);
+  line_manager_id = new FormControl('', Validators.required);
+  reporting_line_ids = new FormControl('', Validators.required);
   departmentId = new FormControl('', Validators.required);
   staffs: any;
+
 
   constructor(private branchService: BranchService, private companyService: CompanyService,
     private staffService: StaffService, private ngxService: NgxUiLoaderService,
@@ -50,12 +53,13 @@ export class CmrStaffComponent implements OnInit {
         'othernames': this.othernames,
         'branchId': this.branchId,
         'email': this.email,
-        'companyId': this.companyId,
         'phoneNo': this.phoneNo,
         'gender': this.genders,
         'role': this.role,
         'date_of_birth': this.date_of_birth,
         'date_joined': this.date_joined,
+        'line_manager_id': this.line_manager_id,
+        'reporting_line_ids': this.reporting_line_ids,
         'departmentId': this.departmentId
     });
     // this.getBranches();
@@ -73,16 +77,8 @@ export class CmrStaffComponent implements OnInit {
   }
 
 
-  // ngOnChanges(){
-  //   //this.getBranches();
-  //   this.getDepartments()
-  //   this.getStaff();
-
-  // }
   ngOnInit() {
-     this.getBranches();
-    // this.getDepartments()
-    // this.getStaff();
+    this.getBranches();
   }
 
   public getBranches() {
@@ -119,15 +115,19 @@ export class CmrStaffComponent implements OnInit {
 
 
   public createStaff(form) {
-    this.ngxService.start();
     form = this.form;
-    console.log('this is form value', form.value);
+    this.ngxService.start();
+    console.log(form.value);
     this.staff = form.value;
-    const about = this.companyId;
-    this.staff['about'] = about;
+    let companyId = '';
+    if (localStorage.getItem('cu')) {
+      companyId = JSON.parse(localStorage.getItem('cu'))['companyId'];
+    }
+    this.staff['about'] = companyId;
+    this.staff['companyId'] = companyId;
 
     this.staffService.createStaff(this.staff).subscribe((response) => {
-      console.log('this is response', response);
+      console.log(response);
       this.staff = new Staff();
       this.getStaff();
       this.ngxService.stop();
@@ -148,8 +148,11 @@ export class CmrStaffComponent implements OnInit {
     if ( /\.(csv|xlsx)$/i.test(this.selectedFile.name) === false  ) {
       alert('please choose a file in CSV or Excel format!');
     } else {
-      this.companyId = this.staffs.companyId;
-    this.staffService.submitCsv(this.companyId, files).subscribe(csv => {
+      let companyId = '';
+    if (localStorage.getItem('cu')) {
+      companyId = JSON.parse(localStorage.getItem('cu'))['companyId'];
+    }
+    this.staffService.submitCsv(companyId, files).subscribe(csv => {
       if (csv) {
         console.log('sent', csv);
         alert('Staff Sheet sent to Database');
@@ -166,5 +169,7 @@ export class CmrStaffComponent implements OnInit {
       console.log(data);
     });
   }
+
+
 
 }

@@ -20,7 +20,7 @@ export class BranchService {
     if (localStorage.getItem('cu')) {
       companyId = JSON.parse(localStorage.getItem('cu'))['companyId'];
     }
-    return  this.httpClient.get(`${this.API_URL}/branch/${companyId}/company`);
+    return  this.httpClient.get(`${this.testUrl}/branch/${companyId}/company`);
   }
 
   createBranch(branch) {

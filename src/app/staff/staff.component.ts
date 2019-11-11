@@ -24,7 +24,6 @@ export class StaffComponent implements OnInit {
   departments: Array<object> = [];
   allStaff: Array<object> = [];
   staff = new Staff();
-  companyId: any;
   currentUser: any;
   selectedFile: File;
   imagePreview: any;
@@ -42,6 +41,8 @@ export class StaffComponent implements OnInit {
   line_manager_id = new FormControl('', Validators.required);
   reporting_line_ids = new FormControl('', Validators.required);
   department = new FormControl('', Validators.required);
+  staffs: any;
+
 
   constructor(private branchService: BranchService, private companyService: CompanyService,
     private staffService: StaffService, private ngxService: NgxUiLoaderService,
@@ -60,7 +61,8 @@ export class StaffComponent implements OnInit {
         'date_joined': this.date_joined,
         'line_manager_id': this.line_manager_id,
         'reporting_line_ids': this.reporting_line_ids,
-        'department': this.department });
+        'department': this.department
+    });
     // this.getBranches();
     // this.getCompanies();
     // this.getDepartments()
@@ -75,29 +77,20 @@ export class StaffComponent implements OnInit {
 
   }
 
-
-  // ngOnChanges(){
-  //   //this.getBranches();
-  //   this.getDepartments()
-  //   this.getStaff();
-
-  // }
   ngOnInit() {
-    // this.getBranches();
-    // this.getDepartments()
-    // this.getStaff();
-     this.companyId = '';
-    if (localStorage.getItem('cu')) {
-      this.currentUser = JSON.parse(localStorage.getItem('cu'));
-      this.companyId = this.currentUser['companyId'];
-    }
+    this.getBranches();
   }
 
   public getBranches() {
     this.ngxService.start();
     this.branchService.getCompanyBranches().subscribe((data: Array<object>) => {
-      this.branches = data;
-      console.log('Branches => ', data);
+    const trial = data['data'];
+    const again = [];
+    for (let count = 0; count < trial.length; count++) {
+      again.push(trial[count]);
+    }
+    this.branches = again;
+      console.log('Branches => ', this.branches);
       this.ngxService.stop();
     });
   }
@@ -130,8 +123,8 @@ export class StaffComponent implements OnInit {
     if (localStorage.getItem('cu')) {
       companyId = JSON.parse(localStorage.getItem('cu'))['companyId'];
     }
-    this.staff['companyId'] = companyId;
     this.staff['about'] = companyId;
+    this.staff['companyId'] = companyId;
 
     this.staffService.createStaff(this.staff).subscribe((response) => {
       console.log(response);
@@ -141,7 +134,9 @@ export class StaffComponent implements OnInit {
     });
   }
 
-  uploadFile(event) {
+  uploadFile(event, form) {
+    form = this.form;
+    this.staffs = form.value;
     this.selectedFile = event.target.files[0];
     const reader = new FileReader();
     reader.onload = () => {
@@ -153,6 +148,7 @@ export class StaffComponent implements OnInit {
     if ( /\.(csv|xlsx)$/i.test(this.selectedFile.name) === false  ) {
       alert('please choose a file in CSV or Excel format!');
     } else {
+      this.companyId = this.staffs.companyId;
     this.staffService.submitCsv(this.companyId, files).subscribe(csv => {
       if (csv) {
         console.log('sent', csv);
@@ -170,5 +166,6 @@ export class StaffComponent implements OnInit {
       console.log(data);
     });
   }
+
 
 }
