@@ -66,17 +66,17 @@ public createLeave(leaveForm: NgForm) {
   this.leaveService.createLeave(this.companyId, {
     'components': components
   }).subscribe((response) => {
-    if (response) {
-      this.alertService.success('Leave created Successfully', true);
-    } else {
-      this.alertService.error('Something went wrong: Leave Not Created', true);
-    }
+    alert('Leave created successfully');
     this.leaveService.updateLeave(this.companyId).subscribe((update) => {
       console.log('this is update', update);
     });
     console.log('this is response', response);
+    leaveForm.reset('');
     this.leave = new Leave();
     this.getLeaves();
+  }, err => {
+    console.log('this is error', err['error']['message']);
+    alert(err['error']['message']);
   });
 }
 

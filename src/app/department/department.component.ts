@@ -15,6 +15,7 @@ export class DepartmentComponent implements OnInit {
   companies: Array<object> = [];
   department = new Department();
   form: FormGroup;
+  companyId = JSON.parse(localStorage.getItem('cu'))['companyId'];
   name = new FormControl('', Validators.required);
   email = new FormControl('', Validators.required);
   description = new FormControl('', Validators.required);
@@ -24,7 +25,8 @@ export class DepartmentComponent implements OnInit {
       this.form = fb.group({
         'name': this.name,
         'email': this.email,
-        'description': this.description
+        'description': this.description,
+        'companyId': this.companyId
     });
      }
 
@@ -56,11 +58,6 @@ export class DepartmentComponent implements OnInit {
     form = this.form;
     console.log(form.value);
     this.department = form.value;
-    let companyId = '';
-    if (localStorage.getItem('cu')) {
-      companyId = JSON.parse(localStorage.getItem('cu'))['companyId'];
-    }
-    this.department['companyId'] = companyId;
     this.departmentService.createDepartment(this.department).subscribe((response) => {
       console.log(response);
       this.department = new Department();

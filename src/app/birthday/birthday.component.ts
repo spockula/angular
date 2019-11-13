@@ -19,7 +19,7 @@ export class BirthdayComponent implements OnInit {
     this.birthdayService.getCompanyBirthdays().subscribe((data: Array<object>) => {
       this.birthdays = data['data'];
       console.log('=>', this.birthdays);
-      //return this.birthdays;
+      // return this.birthdays;
     }, err => {
       console.log(err);
     });

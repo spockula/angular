@@ -20,11 +20,11 @@ export class BirthdayService {
   }
 
   getCompanyBirthdays() {
-    var companyId= '';
+    let companyId = '';
     if (localStorage.getItem('cu')) {
       companyId = JSON.parse(localStorage.getItem('cu'))['companyId'];
     }
- 
+
     return this.httpClient.get(`${this.API_URL}/birthday/${companyId}/company`);
   }
 }

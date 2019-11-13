@@ -54,6 +54,10 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('cu', JSON.stringify(_data));
         this.router.navigate([this.returnUrl]);
       }
+    }, err => {
+      console.log('this is error', err['error']['message']);
+      alert(err['error']['message']);
+      this.form.reset();
     });
   }
 

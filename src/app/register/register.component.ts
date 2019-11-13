@@ -46,6 +46,12 @@ export class RegisterComponent implements OnInit {
       this.register = new Register();
       this.router.navigate([this.returnUrl]);
       this.ngxService.stop();
+    }, err => {
+      console.log('this is error', err['error']['message']);
+      alert(err['error']['message']);
+      this.register = new Register();
+      this.router.navigate([this.returnUrl]);
+      this.ngxService.stop();
     });
   }
 

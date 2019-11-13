@@ -20,7 +20,7 @@ export class CmrDepartmentComponent implements OnInit {
   companyId = new FormControl('', Validators.required);
 
 
-  constructor(private departmentService: DepartmentService, private companyService: CompanyService,fb: FormBuilder) { 
+  constructor(private departmentService: DepartmentService, private companyService: CompanyService, fb: FormBuilder) {
     this.form = fb.group({
       'name': this.name,
       'email': this.email,
@@ -56,6 +56,10 @@ export class CmrDepartmentComponent implements OnInit {
       console.log(response);
       this.department = new Department();
       this.getDepartments();
+      this.form.reset();
+    }, err => {
+      console.log('this is error', err['error']['message']);
+      alert(err['error']['message']);
     });
   }
 

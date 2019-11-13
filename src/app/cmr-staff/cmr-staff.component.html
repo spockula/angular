@@ -71,10 +71,8 @@
 
                   <div class="row">
                     <div class="input-field col s12">
-                      <select formControlName="gender" type="text" class="form-control" name="gender" id="gender">
-                        <option value="" disabled selected>Choose Staff Gender</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
+                      <select formControlName="gender" type="text" class="form-control" name="gender" id="gender" required>
+                         <option [value]="sex" *ngFor="let sex of genders">{{sex}}</option>
                       </select>
                       <label for="gender">Staff Gender</label>
                     </div>
@@ -196,6 +194,7 @@
                       <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field> -->
 
+                    <span *ngIf="!form.valid"> All Fields are Required, please fill up empty Fields </span>
 
 
                   <div class="row">
@@ -246,9 +245,14 @@
                     </div>
                   </div>
 
-              <div class="image-preview" >
-            <img [src]="imagePreview" >
-            </div>
+
+             <span> this is unsaved {{unSavedData.email}}
+             <br>
+             this is error: {{errorSaving.staffId}} 
+             <br>
+             this is saved: {{savedData}} </span>
+
+
 
           </form >
 

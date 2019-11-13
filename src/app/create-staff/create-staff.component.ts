@@ -28,10 +28,11 @@ export class CreateStaffComponent implements OnInit {
   currentUser: any;
   selectedFile: File;
   imagePreview: any;
+  genders = ['', 'Male', 'Female'];
   companyId = JSON.parse(localStorage.getItem('cu'))['companyId'];
   form: FormGroup;
   surname = new FormControl('', Validators.required);
-  genders = new FormControl([{'gender': 'Male'}, {'gender': 'Female'}], Validators.required);
+  gender = new FormControl('', Validators.required);
   othernames = new FormControl('', Validators.required);
   branchId = new FormControl('', Validators.required);
   email = new FormControl('', Validators.required);
@@ -55,7 +56,7 @@ export class CreateStaffComponent implements OnInit {
         'branchId': this.branchId,
         'email': this.email,
         'phoneNo': this.phoneNo,
-        'gender': this.genders,
+        'gender': this.gender,
         'role': this.role,
         'date_of_birth': this.date_of_birth,
         'date_joined': this.date_joined,
@@ -131,6 +132,12 @@ export class CreateStaffComponent implements OnInit {
       console.log(response);
       this.staff = new Staff();
       this.getStaff();
+      this.form.reset();
+      this.ngxService.stop();
+    }, err => {
+      console.log('this is error', err['error']['message']);
+      alert(err['error']['message']);
+      this.form.reset();
       this.ngxService.stop();
     });
   }
@@ -154,12 +161,12 @@ export class CreateStaffComponent implements OnInit {
       companyId = JSON.parse(localStorage.getItem('cu'))['companyId'];
     }
     this.staffService.submitCsv(companyId, files).subscribe(csv => {
-      if (csv) {
         console.log('sent', csv);
         alert('Staff Sheet sent to Database');
-      } else {
-        alert('Data was not sent. Contact Office People Admin ');
-      }
+    }, err => {
+      console.log('this is error', err['error']['message']);
+      alert(err['error']['message']);
+      this.ngxService.stop();
     });
     }
   }

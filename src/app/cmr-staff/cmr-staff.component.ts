@@ -3,6 +3,7 @@ import { BranchService } from './../services/branch.service';
 import { CompanyService } from './../services/company.service';
 import { StaffService } from './../services/staff.service';
 import { Staff } from './Staff';
+import { AlertService } from '../services/alert.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -26,10 +27,10 @@ export class CmrStaffComponent implements OnInit {
   staff = new Staff();
   currentUser: any;
   selectedFile: File;
-  imagePreview: any;
   form: FormGroup;
+  genders = ['', 'Male', 'Female'];
   surname = new FormControl('', Validators.required);
-  genders = new FormControl([{'gender': 'Male'}, {'gender': 'Female'}], Validators.required);
+  gender = new FormControl('', Validators.required);
   othernames = new FormControl('', Validators.required);
   branchId = new FormControl('', Validators.required);
   companyId = new FormControl('', Validators.required);
@@ -40,11 +41,14 @@ export class CmrStaffComponent implements OnInit {
   date_joined = new FormControl('', Validators.required);
   departmentId = new FormControl('', Validators.required);
   staffs: any;
+  savedData: any;
+  errorSaving: any;
+  unSavedData: any;
 
   constructor(private branchService: BranchService, private companyService: CompanyService,
     private staffService: StaffService, private ngxService: NgxUiLoaderService,
     private departmentService: DepartmentService,
-     private actr: ActivatedRoute, fb: FormBuilder) {
+     private actr: ActivatedRoute, fb: FormBuilder, private alertService: AlertService) {
       this.form = fb.group({
         'surname': this.surname,
         'othernames': this.othernames,
@@ -52,7 +56,7 @@ export class CmrStaffComponent implements OnInit {
         'email': this.email,
         'companyId': this.companyId,
         'phoneNo': this.phoneNo,
-        'gender': this.genders,
+        'gender': this.gender,
         'role': this.role,
         'date_of_birth': this.date_of_birth,
         'date_joined': this.date_joined,
@@ -129,6 +133,11 @@ export class CmrStaffComponent implements OnInit {
       console.log('this is response', response);
       this.staff = new Staff();
       this.getStaff();
+      this.form.reset();
+      this.ngxService.stop();
+    }, err => {
+      console.log('this is error', err['error']['message']);
+      alert(err['error']['message']);
       this.ngxService.stop();
     });
   }
@@ -138,9 +147,6 @@ export class CmrStaffComponent implements OnInit {
     this.staffs = form.value;
     this.selectedFile = event.target.files[0];
     const reader = new FileReader();
-    reader.onload = () => {
-      this.imagePreview = reader.result;
-    };
     reader.readAsDataURL(this.selectedFile);
     const files = new FormData();
     files.append('files', this.selectedFile, this.selectedFile.name);
@@ -149,12 +155,26 @@ export class CmrStaffComponent implements OnInit {
     } else {
       this.companyId = this.staffs.companyId;
     this.staffService.submitCsv(this.companyId, files).subscribe(csv => {
-      if (csv) {
-        console.log('sent', csv);
-        alert('Staff Sheet sent to Database');
-      } else {
-        alert('Data was not sent. Contact Office People Admin ');
-      }
+        console.log('Error from saving', csv['data']['errorFromSaving']['data'][1]['errors']);
+        console.log('sent', csv['data']['errorFromSaving']);
+        this.errorSaving = csv['data']['errorFromSaving']['data'][0];
+       console.log('this is error saving', this.errorSaving);
+        this.savedData = (csv['data']['savedData']['data']);
+        const trial =  csv['data']['unSavedData']['data'];
+        console.log('this is saved', this.savedData);
+        const hold = [];
+       for ( let count = 0; count < trial.length; count++) {
+        for (let c = 0; c < trial[count].length; c++) {
+          hold.push(trial[count][c++]);
+         }
+       }
+        this.unSavedData = hold;
+        console.log('this is unsaved', this.unSavedData);
+    } , err => {
+      console.log('this is error', err['error']['message']);
+      alert(err['error']['message']);
+      this.form.reset('');
+      this.ngxService.stop();
     });
     }
   }
