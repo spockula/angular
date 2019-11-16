@@ -219,8 +219,57 @@
           <div class="col s12">
             <div class="card">
               <div class="card-content">
-                <h4 class="card-title">Upload Staff Sheet Instead (CSV or Excel)</h4>
+               <button (click)="downloadFile()">Download</button> <br>
+                <h2 class="card-title">Upload Staff Sheet Instead (CSV or Excel)</h2>
                 <form class="col s12" [formGroup] = "form" novalidate>
+
+              <span>
+              <h6> Preview Data: </h6> <br>
+                <input type="file" class="upload" (change)="chooseFile($event)">
+
+                </span>
+
+                <br>
+
+                <br>
+
+              <div *ngFor="let obj of savedData">
+              <table>
+                  <tbody>
+                  <tr>
+                    <td> {{obj.Surname}} </td>
+                    <td> {{obj.Othernames}} </td>
+                    <td>  {{obj.Company}} </td>
+                    <td>  {{obj.Branch}} </td>
+                    <td>  {{obj.Email}} </td>
+                    <td>   {{obj.PhoneNo}} </td>
+                    <td>  {{obj.Gender}} </td>
+                    <td>  {{obj.Role}} </td>
+                    <td>  {{obj.Department}} </td>
+                    <td>  {{obj.Date_of_Birth}} </td>
+                    <td>  {{obj.Date_Joined}} </td>
+                    <td>  {{obj.Line_Manager}} </td>
+                    <td>  {{obj.Reporting_Lines_ids}}</td>
+                    <td>   {{obj.About}}</td>
+                    <td>   {{obj.branchId}}</td>
+                    <td>   {{obj.hr_id}}</td>
+                    <td>  {{obj.departmentId}}</td>
+                    <td>   {{obj.Line_Manager_Id}}</td>
+                    <td>   {{obj.companyId}}</td>
+
+
+                  </tr>
+                  </tbody>
+              </table>
+            </div>
+
+            <h6> Please confirm that data in the sheet as displayed above is properly filled as given in the Excel template before upload. </h6>
+
+
+                <br>
+
+                <br>
+
 
                 <div class="row">
                     <div class="input-field col s12">
@@ -244,14 +293,6 @@
                       </div>
                     </div>
                   </div>
-
-
-             <span> this is unsaved {{unSavedData.email}}
-             <br>
-             this is error: {{errorSaving.staffId}} 
-             <br>
-             this is saved: {{savedData}} </span>
-
 
 
           </form >

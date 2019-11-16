@@ -9,6 +9,7 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { DepartmentService } from '../services/department.service';
 import { ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/map';
+import * as XLSX from 'xlsx';
 
 
 @Component({
@@ -170,6 +171,39 @@ export class CreateStaffComponent implements OnInit {
     });
     }
   }
+
+  chooseFile(event) {
+    this.selectedFile = event.target.files[0];
+    const file = this.selectedFile;
+   if (/\.(csv|xlsx)$/i.test(this.selectedFile.name) === false  ) {
+      alert('please choose a file in CSV or Excel format!');
+  } else {
+    this.parseExcel(file);
+  }
+}
+
+parseExcel(file) {
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const data = (<any>e.target).result;
+    const workbook = XLSX.read(data, {
+      type: 'binary'
+    });
+    workbook.SheetNames.forEach((function(sheetName) {
+      // Here is your object
+      const XL_row_object = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
+      this.savedData = XL_row_object;
+
+      console.log('this is saved Data', this.savedData);
+    }).bind(this), this);
+  };
+
+  reader.onerror = function(ex) {
+    console.log(ex);
+  };
+  reader.readAsBinaryString(file);
+}
+
 
   public getDepartments() {
     this.departmentService.getCompanyDepartments().subscribe((data: Array<object>) => {

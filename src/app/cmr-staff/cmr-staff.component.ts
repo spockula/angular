@@ -10,6 +10,7 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { DepartmentService } from '../services/department.service';
 import { ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/map';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-cmr-staff',
@@ -41,9 +42,6 @@ export class CmrStaffComponent implements OnInit {
   date_joined = new FormControl('', Validators.required);
   departmentId = new FormControl('', Validators.required);
   staffs: any;
-  savedData: any;
-  errorSaving: any;
-  unSavedData: any;
 
   constructor(private branchService: BranchService, private companyService: CompanyService,
     private staffService: StaffService, private ngxService: NgxUiLoaderService,
@@ -142,6 +140,38 @@ export class CmrStaffComponent implements OnInit {
     });
   }
 
+  chooseFile(event) {
+    this.selectedFile = event.target.files[0];
+    const file = this.selectedFile;
+   if (/\.(csv|xlsx)$/i.test(this.selectedFile.name) === false  ) {
+      alert('please choose a file in CSV or Excel format!');
+  } else {
+    this.parseExcel(file);
+  }
+}
+
+parseExcel(file) {
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const data = (<any>e.target).result;
+    const workbook = XLSX.read(data, {
+      type: 'binary'
+    });
+    workbook.SheetNames.forEach((function(sheetName) {
+      // Here is your object
+      const XL_row_object = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
+      this.savedData = XL_row_object;
+
+      console.log('this is saved Data', this.savedData);
+    }).bind(this), this);
+  };
+
+  reader.onerror = function(ex) {
+    console.log(ex);
+  };
+  reader.readAsBinaryString(file);
+}
+
   uploadFile(event, form) {
     form = this.form;
     this.staffs = form.value;
@@ -150,26 +180,9 @@ export class CmrStaffComponent implements OnInit {
     reader.readAsDataURL(this.selectedFile);
     const files = new FormData();
     files.append('files', this.selectedFile, this.selectedFile.name);
-    if ( /\.(csv|xlsx)$/i.test(this.selectedFile.name) === false  ) {
-      alert('please choose a file in CSV or Excel format!');
-    } else {
       this.companyId = this.staffs.companyId;
     this.staffService.submitCsv(this.companyId, files).subscribe(csv => {
-        console.log('Error from saving', csv['data']['errorFromSaving']['data'][1]['errors']);
-        console.log('sent', csv['data']['errorFromSaving']);
-        this.errorSaving = csv['data']['errorFromSaving']['data'][0];
-       console.log('this is error saving', this.errorSaving);
-        this.savedData = (csv['data']['savedData']['data']);
-        const trial =  csv['data']['unSavedData']['data'];
-        console.log('this is saved', this.savedData);
-        const hold = [];
-       for ( let count = 0; count < trial.length; count++) {
-        for (let c = 0; c < trial[count].length; c++) {
-          hold.push(trial[count][c++]);
-         }
-       }
-        this.unSavedData = hold;
-        console.log('this is unsaved', this.unSavedData);
+        alert('Uploaded Successfully');
     } , err => {
       console.log('this is error', err['error']['message']);
       alert(err['error']['message']);
@@ -177,7 +190,6 @@ export class CmrStaffComponent implements OnInit {
       this.ngxService.stop();
     });
     }
-  }
 
   public getDepartments() {
     this.departmentService.getCompanyDepartments().subscribe((data: Array<object>) => {
@@ -185,5 +197,12 @@ export class CmrStaffComponent implements OnInit {
       console.log(data);
     });
   }
+
+  downloadFile() {
+    const link = document.createElement('a');
+    link.download = 'Excel Template';
+    link.href = '/src/assets/staffList.xlsx';
+    link.click();
+}
 
 }

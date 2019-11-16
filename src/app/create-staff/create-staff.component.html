@@ -38,7 +38,7 @@
 
                   <div class="row">
                     <div class="input-field col s12">
-                      <input placeholder="Branch ID" 
+                      <input placeholder="Branch ID"
                       formControlName="branchId" type="text" class="form-control"
                         name="branchId" id="branchId">
                       <label for="branchId">Branch ID</label>
@@ -47,7 +47,7 @@
 
                   <div class="row">
                     <div class="input-field col s12">
-                      <input placeholder="Staff Surname" 
+                      <input placeholder="Staff Surname"
                       formControlName="surname" type="text" class="form-control"
                         name="surname" id="surname">
                       <label for="surname">Staff Surname</label>
@@ -56,7 +56,7 @@
 
                   <div class="row">
                     <div class="input-field col s12">
-                      <input placeholder="Staff Othernames" 
+                      <input placeholder="Staff Othernames"
                        formControlName="othernames" type="text"
                         class="form-control" name="othernames" id="othernames">
                       <label for="othernames">Staff Othernames</label>
@@ -77,7 +77,7 @@
 
                   <div class="row">
                     <div class="input-field col s12">
-                      <input placeholder="Staff Email" 
+                      <input placeholder="Staff Email"
                        formControlName="email" type="text" class="form-control"
                         name="email" id="email">
                       <label for="email">Staff Email</label>
@@ -113,7 +113,7 @@
                     </div>
                       <!-- <mat-form-field> -->
                         <div class="col">
-                            <input matInput [matDatepicker]="picker" 
+                            <input matInput [matDatepicker]="picker"
                              placeholder="Date of Birth" formControlName="date_of_birth"
                             name="date_of_birth" id="date_of_birth">
                         </div>
@@ -140,7 +140,7 @@
                        </div>
 
                            <div class="col">
-                               <input matInput [matDatepicker]="DJpicker" 
+                               <input matInput [matDatepicker]="DJpicker"
                                 placeholder="Date Joined" formControlName="date_joined"
                                name="date_joined" id="date_joined">
                            </div>
@@ -173,7 +173,7 @@
 
                  <div class="row">
                     <div class="input-field col s12">
-                      <input placeholder="Department ID" 
+                      <input placeholder="Department ID"
                        formControlName="departmentId" type="text" class="form-control"
                         name="departmentId" id="departmentId">
                       <label for="departmentId">Department ID</label>
@@ -183,7 +183,7 @@
 
                   <div class="row">
                     <div class="input-field col s12">
-                      <input placeholder="Staff Role" 
+                      <input placeholder="Staff Role"
                        formControlName="role" type="text" class="form-control"
                         name="role" id="role">
                       <label for="role">Staff Role</label>
@@ -219,7 +219,7 @@
                   <div class="row">
                     <div class="row">
                       <div class="input-field col s12">
-                        <button class="btn cyan waves-effect waves-light right" type="submit" 
+                        <button class="btn cyan waves-effect waves-light right" type="submit"
                         [disabled]="!form.valid"  name="action">
                           <i class="material-icons left">add_circle_outline</i>
                           Add Staff
@@ -235,12 +235,68 @@
         </div>
 
 
-        <div class="row">
+         <div class="row">
           <div class="col s12">
             <div class="card">
               <div class="card-content">
-                <h4 class="card-title">Upload Staff Sheet Instead (CSV or Excel)</h4>
+                <h2 class="card-title">Upload Staff Sheet Instead (CSV or Excel)</h2>
                 <form class="col s12" [formGroup] = "form" novalidate>
+
+              <span>
+              <h6> Preview Data: </h6> <br>
+                <input type="file" class="upload" (change)="chooseFile($event)">
+
+                </span>
+
+                <br>
+
+                <br>
+
+              <div *ngFor="let obj of savedData">
+              <table>
+                  <tbody>
+                  <tr>
+                    <td> {{obj.Surname}} </td>
+                    <td> {{obj.Othernames}} </td>
+                    <td>  {{obj.Company}} </td>
+                    <td>  {{obj.Branch}} </td>
+                    <td>  {{obj.Email}} </td>
+                    <td>   {{obj.PhoneNo}} </td>
+                    <td>  {{obj.Gender}} </td>
+                    <td>  {{obj.Role}} </td>
+                    <td>  {{obj.Department}} </td>
+                    <td>  {{obj.Date_of_Birth}} </td>
+                    <td>  {{obj.Date_Joined}} </td>
+                    <td>  {{obj.Line_Manager}} </td>
+                    <td>  {{obj.Reporting_Lines_ids}}</td>
+                    <td>   {{obj.About}}</td>
+                    <td>   {{obj.branchId}}</td>
+                    <td>   {{obj.hr_id}}</td>
+                    <td>  {{obj.departmentId}}</td>
+                    <td>   {{obj.Line_Manager_Id}}</td>
+                    <td>   {{obj.companyId}}</td>
+
+
+                  </tr>
+                  </tbody>
+              </table>
+            </div>
+
+            <h6> Please confirm that data in the sheet as displayed above is properly filled as given in the Excel template before upload. </h6>
+
+
+                <br>
+
+                <br>
+
+
+                <div class="row">
+                    <div class="input-field col s12">
+                      <input placeholder="Company ID" formControlName="companyId" type="text" class="form-control"
+                        name="companyId" id="companyId">
+                      <label for="companyId">Company ID</label>
+                    </div>
+                  </div>
 
          <div>
           <button class="btn cyan waves-effect waves-light right" (click)="selectFile.click()">
@@ -257,9 +313,6 @@
                     </div>
                   </div>
 
-              <div class="image-preview" >
-            <img [src]="imagePreview" >
-            </div>
 
           </form >
 
