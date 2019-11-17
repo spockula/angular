@@ -45,6 +45,7 @@ export class CreateStaffComponent implements OnInit {
   reporting_line_ids = new FormControl('', Validators.required);
   departmentId = new FormControl('', Validators.required);
   staffs: any;
+  savedData: any;
 
 
   constructor(private branchService: BranchService, private companyService: CompanyService,
@@ -178,30 +179,22 @@ export class CreateStaffComponent implements OnInit {
    if (/\.(csv|xlsx)$/i.test(this.selectedFile.name) === false  ) {
       alert('please choose a file in CSV or Excel format!');
   } else {
-    this.parseExcel(file);
+    let workBook = null;
+    let jsonData = null;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const data = (<any>e.target).result;
+      workBook = XLSX.read(data, { type: 'binary' });
+      jsonData = workBook.SheetNames.reduce((initial, name) => {
+        const sheet = workBook.Sheets[name];
+        initial[name] = XLSX.utils.sheet_to_json(sheet);
+        return initial;
+      }, {});
+      this.savedData = jsonData;
+      console.log('this is saced data', this.savedData);
+  };
+  reader.readAsBinaryString(this.selectedFile);
   }
-}
-
-parseExcel(file) {
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    const data = (<any>e.target).result;
-    const workbook = XLSX.read(data, {
-      type: 'binary'
-    });
-    workbook.SheetNames.forEach((function(sheetName) {
-      // Here is your object
-      const XL_row_object = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
-      this.savedData = XL_row_object;
-
-      console.log('this is saved Data', this.savedData);
-    }).bind(this), this);
-  };
-
-  reader.onerror = function(ex) {
-    console.log(ex);
-  };
-  reader.readAsBinaryString(file);
 }
 
 
