@@ -149,29 +149,19 @@ export class CreateStaffComponent implements OnInit {
     this.staffs = form.value;
     this.selectedFile = event.target.files[0];
     const reader = new FileReader();
-    reader.onload = () => {
-      this.imagePreview = reader.result;
-    };
     reader.readAsDataURL(this.selectedFile);
     const files = new FormData();
     files.append('files', this.selectedFile, this.selectedFile.name);
-    if ( /\.(csv|xlsx)$/i.test(this.selectedFile.name) === false  ) {
-      alert('please choose a file in CSV or Excel format!');
-    } else {
-      let companyId = '';
-    if (localStorage.getItem('cu')) {
-      companyId = JSON.parse(localStorage.getItem('cu'))['companyId'];
-    }
-    this.staffService.submitCsv(companyId, files).subscribe(csv => {
-        console.log('sent', csv);
-        alert('Staff Sheet sent to Database');
-    }, err => {
+      this.companyId = this.staffs.companyId;
+    this.staffService.submitCsv(this.companyId, files).subscribe(csv => {
+        alert('Uploaded Successfully');
+    } , err => {
       console.log('this is error', err['error']['message']);
       alert(err['error']['message']);
+      this.form.reset('');
       this.ngxService.stop();
     });
     }
-  }
 
   chooseFile(event) {
     this.selectedFile = event.target.files[0];

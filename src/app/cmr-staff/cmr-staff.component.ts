@@ -113,11 +113,9 @@ export class CmrStaffComponent implements OnInit {
   }
 
   public getStaff() {
-    this.ngxService.start();
     this.staffService.getAllStaff().subscribe((data: Array<object>) => {
       this.allStaff = data;
       console.log(data);
-      this.ngxService.stop();
     });
   }
 
@@ -164,25 +162,31 @@ export class CmrStaffComponent implements OnInit {
   }
 }
 
-
-  uploadFile(event, form) {
-    form = this.form;
-    this.staffs = form.value;
-    this.selectedFile = event.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(this.selectedFile);
-    const files = new FormData();
-    files.append('files', this.selectedFile, this.selectedFile.name);
-      this.companyId = this.staffs.companyId;
-    this.staffService.submitCsv(this.companyId, files).subscribe(csv => {
-        alert('Uploaded Successfully');
-    } , err => {
-      console.log('this is error', err['error']['message']);
-      alert(err['error']['message']);
-      this.form.reset('');
-      this.ngxService.stop();
-    });
-    }
+uploadFile(event, form) {
+  form = this.form;
+  this.staffs = form.value;
+  this.selectedFile = event.target.files[0];
+  const reader = new FileReader();
+  reader.readAsDataURL(this.selectedFile);
+  const files = new FormData();
+  files.append('files', this.selectedFile, this.selectedFile.name);
+  if ( /\.(csv|xlsx)$/i.test(this.selectedFile.name) === false  ) {
+    alert('please choose a file in CSV or Excel format!');
+  } else {
+    let companyId = '';
+  if (localStorage.getItem('cu')) {
+    companyId = JSON.parse(localStorage.getItem('cu'))['companyId'];
+  }
+  this.staffService.submitCsv(companyId, files).subscribe(csv => {
+      console.log('sent', csv);
+      alert('Staff Sheet sent to Database');
+  }, err => {
+    console.log('this is error', err['error']['message']);
+    alert(err['error']['message']);
+    this.ngxService.stop();
+  });
+  }
+}
 
   public getDepartments() {
     this.departmentService.getCompanyDepartments().subscribe((data: Array<object>) => {
