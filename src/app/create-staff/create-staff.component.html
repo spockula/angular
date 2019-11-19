@@ -235,10 +235,11 @@
         </div>
 
 
-         <div class="row">
+          <div class="row">
           <div class="col s12">
             <div class="card">
               <div class="card-content">
+               <button (click)="downloadFile()">Download</button> <br>
                 <h2 class="card-title">Upload Staff Sheet Instead (CSV or Excel)</h2>
                 <form class="col s12" [formGroup] = "form" novalidate>
 
@@ -252,11 +253,34 @@
 
                 <br>
 
-              <div *ngFor="let obj of savedData['Sheet1']">
-              <table>
+              <div  style="overflow-x: scroll;" >
+              <table class="display">
+              <thead>
+                        <tr>
+                          <th>Surname</th>
+                        <th>Othernames</th>
+                        <th>Company</th>
+                        <th>Branch</th>
+                        <th>Email</th>
+                        <th>phone No</th>
+                        <th>Gender</th>
+                        <th>Role</th>
+                        <th>Department</th>
+                        <th>Date of Birth</th>
+                        <th>Date Joined</th>
+                        <th>Line Manager</th>
+                        <th>REporting Line ID</th>
+                        <th>About</th>
+                        <th>Branch ID</th>
+                        <th>HR ID</th>
+                        <th>Department ID</th>
+                        <th>Line Manager ID</th>
+                        <th>Company ID</th>
+                        </tr>
+                      </thead>
                   <tbody>
-                  <tr>
-                    <td> {{obj.Surname}} </td>
+                  <tr *ngFor="let obj of savedData['Sheet1']">
+                    <td > {{obj.Surname}} </td>
                     <td> {{obj.Othernames}} </td>
                     <td>  {{obj.Company}} </td>
                     <td>  {{obj.Branch}} </td>
@@ -322,14 +346,13 @@
             </div>
 
 
-
         <div class="row">
           <div class="col s12">
             <div class="card">
               <div class="card-content">
                 <h4 class="card-title">Your Staff</h4>
                 <div class="row">
-                  <div class="col s12">
+                  <div class="col s12" style="overflow-x: scroll;">
                     <table id="page-length-option" class="display">
                       <thead>
                         <tr>
