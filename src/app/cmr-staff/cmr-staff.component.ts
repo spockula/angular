@@ -29,7 +29,6 @@ export class CmrStaffComponent implements OnInit {
   currentUser: any;
   selectedFile: File;
   form: FormGroup;
-  genders = ['', 'Male', 'Female'];
   surname = new FormControl('', Validators.required);
   gender = new FormControl('', Validators.required);
   othernames = new FormControl('', Validators.required);

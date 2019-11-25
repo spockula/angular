@@ -29,7 +29,6 @@ export class CreateStaffComponent implements OnInit {
   currentUser: any;
   selectedFile: File;
   imagePreview: any;
-  genders = ['', 'Male', 'Female'];
   companyId = JSON.parse(localStorage.getItem('cu'))['companyId'];
   form: FormGroup;
   surname = new FormControl('', Validators.required);
