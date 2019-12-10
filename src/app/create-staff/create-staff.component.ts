@@ -11,7 +11,6 @@ import { ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/map';
 import * as XLSX from 'xlsx';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { saveAs } from 'file-saver';
 
 
 @Component({
@@ -183,13 +182,21 @@ export class CreateStaffComponent implements OnInit {
   }
 
   downloadFile() {
-    const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTIngBeZzWRtWn81mzxomibZjW73zo9QX-qVrJIzeJOt7Xj0r0swIuqaCelKFDoMbs6Rkh1wT2VozY1/pub?output=xlsx'
-      this.httpClient.get(url, {responseType: 'blob'})
+    const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTIngBeZzWRtWn81mzxomibZjW73zo9QX-qVrJIzeJOt7Xj0r0swIuqaCelKFDoMbs6Rkh1wT2VozY1/pub?output=xlsx';
+      this.httpClient.get(url, {responseType: 'arraybuffer'})
       .subscribe((res) => {
-        saveAs(res, 'staff.xlsx', 
-     { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' })
-  });
+          this.writeContents(res, 'staff.xlsx', 'xlsx/excel'); // file extension
+      });
   }
+  
+  writeContents(content, fileName, contentType) {
+      const a = document.createElement('a');
+      const file = new Blob([content], {type: contentType});
+      a.href = URL.createObjectURL(file);
+      a.download = fileName;
+      a.click();
+    }
+
 
 
 
