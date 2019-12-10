@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -84,7 +85,7 @@ import { CreateStaffComponent } from './create-staff/create-staff.component';
     NgxUiLoaderHttpModule, BrowserAnimationsModule,
     MatDatepickerModule, MatFormFieldModule, MatNativeDateModule, MatInputModule
   ],
-  providers: [AuthGuard, AlertService],
+  providers: [AuthGuard, AlertService, MatSnackBar],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

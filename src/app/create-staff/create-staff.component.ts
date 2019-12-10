@@ -4,12 +4,14 @@ import { CompanyService } from './../services/company.service';
 import { StaffService } from './../services/staff.service';
 import { Staff } from './Staff';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-
+import { HttpClient } from '@angular/common/http';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { DepartmentService } from '../services/department.service';
 import { ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/map';
 import * as XLSX from 'xlsx';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { saveAs } from 'file-saver';
 
 
 @Component({
@@ -20,6 +22,7 @@ import * as XLSX from 'xlsx';
 export class CreateStaffComponent implements OnInit {
   DOBstartDate = new Date(1990, 0, 1);
   DateJoinedStartDate = new Date(2000, 0, 1);
+  durationInSeconds = 5;
 
   branches: Array<object> = [];
   companies: Array<object> = [];
@@ -49,8 +52,8 @@ export class CreateStaffComponent implements OnInit {
 
   constructor(private branchService: BranchService, private companyService: CompanyService,
     private staffService: StaffService, private ngxService: NgxUiLoaderService,
-    private departmentService: DepartmentService,
-     private actr: ActivatedRoute, fb: FormBuilder) {
+    private departmentService: DepartmentService, private _snackBar: MatSnackBar,
+     private actr: ActivatedRoute, fb: FormBuilder, private httpClient: HttpClient) {
       this.form = fb.group({
         'surname': this.surname,
         'othernames': this.othernames,
@@ -86,32 +89,9 @@ export class CreateStaffComponent implements OnInit {
     if (localStorage.getItem('cu')) {
       this.companyId = JSON.parse(localStorage.getItem('cu'))['companyId'];
     }
-    this.getBranches();
     this.getStaff();
   }
 
-  public getBranches() {
-    this.ngxService.start();
-    this.branchService.getCompanyBranches().subscribe((data: Array<object>) => {
-    const trial = data['data'];
-    const again = [];
-    for (let count = 0; count < trial.length; count++) {
-      again.push(trial[count]);
-    }
-    this.branches = again;
-      console.log('Branches => ', this.branches);
-      this.ngxService.stop();
-    });
-  }
-
-  public getCompanies() {
-    this.ngxService.start();
-    this.companyService.getCompanies().subscribe((data: Array<object>) => {
-      this.companies = data;
-      console.log(data);
-      this.ngxService.stop();
-    });
-  }
 
   public getStaff() {
     this.ngxService.start();
@@ -134,6 +114,7 @@ export class CreateStaffComponent implements OnInit {
       this.staff = new Staff();
       this.getStaff();
       this.form.reset();
+      this.openSnackBar();
       this.ngxService.stop();
     }, err => {
       console.log('this is error', err['error']['message']);
@@ -153,7 +134,7 @@ export class CreateStaffComponent implements OnInit {
     files.append('files', this.selectedFile, this.selectedFile.name);
       this.companyId = this.staffs.companyId;
     this.staffService.submitCsv(this.companyId, files).subscribe(csv => {
-        alert('Uploaded Successfully');
+      this.openSnackBar();
     } , err => {
       console.log('this is error', err['error']['message']);
       alert(err['error']['message']);
@@ -167,6 +148,7 @@ export class CreateStaffComponent implements OnInit {
     const file = this.selectedFile;
    if (/\.(csv|xlsx)$/i.test(this.selectedFile.name) === false  ) {
       alert('please choose a file in CSV or Excel format!');
+      event.srcElement.value = null;
   } else {
     let workBook = null;
     let jsonData = null;
@@ -192,6 +174,21 @@ export class CreateStaffComponent implements OnInit {
       this.departments = data;
       console.log(data);
     });
+  }
+
+  openSnackBar() {
+    this._snackBar.open("Successfully uploaded Staff", "uploaded", {
+      duration: this.durationInSeconds * 1000
+    })
+  }
+
+  downloadFile() {
+    const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTIngBeZzWRtWn81mzxomibZjW73zo9QX-qVrJIzeJOt7Xj0r0swIuqaCelKFDoMbs6Rkh1wT2VozY1/pub?output=xlsx'
+      this.httpClient.get(url, {responseType: 'blob'})
+      .subscribe((res) => {
+        saveAs(res, 'staff.xlsx', 
+     { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' })
+  });
   }
 
 

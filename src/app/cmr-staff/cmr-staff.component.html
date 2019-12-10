@@ -74,7 +74,7 @@
                       <select formControlName="gender" type="text" class="form-control" name="gender" id="gender" required>
                           <option value="" disabled selected>Choose Staff Gender</option>
 -                        <option value="Male">Male</option>
-                          <option value="Female">Male</option>
+                          <option value="Female">Female</option>
                       </select>
                       <label for="gender">Staff Gender</label>
                     </div>
@@ -221,13 +221,15 @@
           <div class="col s12">
             <div class="card">
               <div class="card-content">
-               <button (click)="downloadFile()">Download</button> <br>
+               <button class="btn cyan waves-effect waves-light right" (click)="downloadFile()" >
+               <i class="material-icons left">cloud</i>
+                Download Excel Template</button> <br>
                 <h2 class="card-title">Upload Staff Sheet Instead (CSV or Excel)</h2>
                 <form class="col s12" [formGroup] = "form" novalidate>
 
               <span>
               <h6> Preview Data: </h6> <br>
-                <input type="file" class="upload" (change)="chooseFile($event)">
+                <input #myInput type="file" class="upload" (change)="chooseFile($event)">
 
                 </span>
 
@@ -303,9 +305,11 @@
                       <label for="companyId">Company ID</label>
                     </div>
                   </div>
+                   <span *ngIf="!form.value.companyId"> Company ID is Required. </span>
+
 
          <div>
-          <button class="btn cyan waves-effect waves-light right" (click)="selectFile.click()">
+          <button class="btn cyan waves-effect waves-light right" [disabled]="!form.value.companyId" (click)="selectFile.click()">
                           <i class="material-icons left">add_circle_outline</i>
                           Select File and Upload
                         </button>
