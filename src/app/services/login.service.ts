@@ -12,7 +12,7 @@ export class LoginService {
   constructor(private httpClient: HttpClient) { }
 
   doLogin(credentials) {
-    return  this.httpClient.post(`${this.API_URL}/login`, credentials);
+    return  this.httpClient.post(`${this.testUrl}/login`, credentials);
   }
 
   adminLogin(credentials) {
@@ -20,7 +20,7 @@ export class LoginService {
   }
 
   companyLogin(credentials) {
-    return  this.httpClient.post(`${this.testUrl}/company/`, credentials);
+    return  this.httpClient.post(`${this.API_URL}/company/`, credentials);
 }
 
 }

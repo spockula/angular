@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { StaffService } from './../services/staff.service';
 import { Staff } from './Staff';
-import { AlertService } from '../services/alert.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -48,7 +47,7 @@ export class CmrStaffComponent implements OnInit {
   constructor(private httpClient: HttpClient,
     private staffService: StaffService, private ngxService: NgxUiLoaderService,
     private departmentService: DepartmentService, private _snackBar: MatSnackBar,
-     private actr: ActivatedRoute, fb: FormBuilder, private alertService: AlertService) {
+     private actr: ActivatedRoute, fb: FormBuilder) {
       this.form = fb.group({
         'surname': this.surname,
         'othernames': this.othernames,

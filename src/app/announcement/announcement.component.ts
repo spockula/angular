@@ -3,6 +3,7 @@ import { AnnouncementService } from './../services/announcement.service';
 import { CompanyService } from './../services/company.service';
 import { Announcement } from './Announcement';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-announcement',
@@ -17,9 +18,10 @@ export class AnnouncementComponent implements OnInit {
   searchTerm: string;
   isDataAvail = false;
   form: FormGroup;
+  durationInSeconds: number;
 
 
-  constructor(private announcementService: AnnouncementService,
+  constructor(private announcementService: AnnouncementService, private _snackBar: MatSnackBar,
     private host: ElementRef<HTMLInputElement>, private companyService: CompanyService, public fb: FormBuilder) {
       this.form = this.fb.group({
         title: [''],
@@ -70,15 +72,31 @@ export class AnnouncementComponent implements OnInit {
     this.announcement = formData.value;
     this.announcementService.createAnnouncement(formData).subscribe((response) => {
       console.log(response);
+     this.openSnackBar();
       this.announcement = new Announcement();
       this.getAllAnnouncements();
+    }, err => {
+     this.closeSnackBar();
     });
+  }
+
+  closeSnackBar() {
+    this._snackBar.open("Something went wrong! We could not create New Announcement ", "Error", {
+      duration: this.durationInSeconds * 1000
+    })
+  }
+
+  openSnackBar() {
+    this._snackBar.open("Successfully Created New Announcement", "Created", {
+      duration: this.durationInSeconds * 1000
+    })
   }
 
   uploadFile(event) {
     const file = (event.target as HTMLInputElement).files[0];
     if ( /\.(jpe?g|gif)$/i.test(file.name) === false  ) {
-      alert('please choose an Image with JPG or GIF extension!');
+      alert('please choose an Image with JPG extension!');
+      event.srcElement.value = null;
     } else {
       this.form.patchValue({
       images: file

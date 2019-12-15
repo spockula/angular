@@ -20,7 +20,9 @@ import { AdminRegisterComponent } from './admin-register/admin-register.componen
 import { CompanyRegisterComponent } from './company-register/company-register.component';
 import { CmrStaffComponent } from './cmr-staff/cmr-staff.component';
 import { CmrBranchesComponent } from './cmr-branches/cmr-branches.component';
+import { PolicyComponent } from './policy/policy.component';
 import { CmrDepartmentComponent } from './cmr-department/cmr-department.component';
+import { MoreComponent } from './more/more.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -41,6 +43,8 @@ const appRoutes: Routes = [
   { path: 'cmrStaff', component: CmrStaffComponent, canActivate: [AuthGuard] },
   { path: 'cmrBranch', component: CmrBranchesComponent },
   { path: 'cmrDepartment', component: CmrDepartmentComponent },
+  { path: 'policy', component: PolicyComponent },
+  { path: 'more', component: MoreComponent },
   // otherwise redirect to home
   { path: '**', component: NotFoundComponent }
 ];

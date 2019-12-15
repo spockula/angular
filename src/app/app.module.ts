@@ -44,6 +44,9 @@ import { CmrStaffComponent } from './cmr-staff/cmr-staff.component';
 import { CmrBranchesComponent } from './cmr-branches/cmr-branches.component';
 import { CmrDepartmentComponent } from './cmr-department/cmr-department.component';
 import { CreateStaffComponent } from './create-staff/create-staff.component';
+import { PolicyComponent } from './policy/policy.component';
+import {FileSelectDirective} from "ng2-file-upload";
+import { MoreComponent } from './more/more.component';
 
 
 @NgModule({
@@ -73,6 +76,9 @@ import { CreateStaffComponent } from './create-staff/create-staff.component';
     CmrBranchesComponent,
     CmrDepartmentComponent,
     CreateStaffComponent,
+    PolicyComponent,
+    FileSelectDirective,
+    MoreComponent,
   ],
   imports: [
     ReactiveFormsModule,

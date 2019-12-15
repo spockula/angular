@@ -49,7 +49,7 @@ export class CreateStaffComponent implements OnInit {
   savedData: any;
 
 
-  constructor(private branchService: BranchService, private companyService: CompanyService,
+  constructor(private companyService: CompanyService,
     private staffService: StaffService, private ngxService: NgxUiLoaderService,
     private departmentService: DepartmentService, private _snackBar: MatSnackBar,
      private actr: ActivatedRoute, fb: FormBuilder, private httpClient: HttpClient) {
@@ -161,7 +161,6 @@ export class CreateStaffComponent implements OnInit {
         return initial;
       }, {});
       this.savedData = jsonData;
-      console.log('this is saced data', this.savedData);
   };
   reader.readAsBinaryString(this.selectedFile);
   }

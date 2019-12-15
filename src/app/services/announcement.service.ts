@@ -8,8 +8,6 @@ import { environment } from '../../environments/environment';
 export class AnnouncementService {
   API_URL  = environment.apiUrl;
   testUrl = 'https://peopleappapis.herokuapp.com/v1';
-  temp = 'http://2e191ee0.ngrok.io/v1'
-
   constructor(private httpClient: HttpClient) { }
 
   getAnnouncements() {
@@ -17,7 +15,7 @@ export class AnnouncementService {
   }
 
   createAnnouncement(form) {
-    return  this.httpClient.post(`${this.temp}/announcement`, form);
+    return  this.httpClient.post(`${this.API_URL}/announcement`, form);
 }
 
 getCompanyAnnouncements() {

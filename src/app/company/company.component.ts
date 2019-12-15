@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { CompanyService } from './../services/company.service';
 import { Company } from './Company';
-import { AlertService } from '../services/alert.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-company',
@@ -13,8 +13,9 @@ export class CompanyComponent implements OnInit {
 
   companies: Array<object> = [];
   company = new Company();
+  durationInSeconds: number;
 
-  constructor(private companyService: CompanyService, private alertService: AlertService) { }
+  constructor(private companyService: CompanyService, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.getCompanies();
@@ -33,14 +34,26 @@ export class CompanyComponent implements OnInit {
     this.company = coy.value;
     this.companyService.createCompany(coy.value).subscribe((response) => {
       if (response) {
-        this.alertService.success('Company created Successfully', true);
+        this.openSnackBar();
       } else {
-        this.alertService.error('Something went wrong: Company Not Created', true);
+        this.closeSnackBar();
       }
       console.log('new company', response);
       this.company = new Company();
       this.getCompanies();
     });
+  }
+
+  openSnackBar() {
+    this._snackBar.open("Successfully Created New Company", "Created", {
+      duration: this.durationInSeconds * 1000
+    })
+  }
+
+  closeSnackBar() {
+    this._snackBar.open("Something went wrong! We could not create New company", "Error", {
+      duration: this.durationInSeconds * 1000
+    })
   }
 
 }

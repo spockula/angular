@@ -221,16 +221,19 @@
           <div class="col s12">
             <div class="card">
               <div class="card-content">
-               <button class="btn cyan waves-effect waves-light right" (click)="downloadFile()" >
-               <i class="material-icons left">cloud</i>
-                Download Excel Template</button> <br>
-                <h2 class="card-title">Upload Staff Sheet Instead (CSV or Excel)</h2>
-                <form class="col s12" [formGroup] = "form" novalidate>
+                <h4 style= "text-align: center;">Upload Staff Sheet Instead (CSV or Excel)</h4>
+                 <h6> *Please it is highly recommended that the data uploaded to us is formatted according to the template. To ensure smooth upload of staff data, please download the template excel sheet 
+               (if you have not done so), and input your staff details and then upload. </h6>
+               <br>
+               <br>
+               <form class="col s12" [formGroup] = "form" novalidate>
 
               <span>
               <h6> Preview Data: </h6> <br>
                 <input #myInput type="file" class="upload" (change)="chooseFile($event)">
-
+              <button class="btn cyan waves-effect waves-light right" (click)="downloadFile()" >
+               <i class="material-icons left">cloud</i>
+                Download Excel Template</button>
                 </span>
 
                 <br>
