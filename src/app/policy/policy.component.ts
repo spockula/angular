@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {FileUploader} from "ng2-file-upload";
 import {HttpHeaders} from "@angular/common/http";
 import { CompanyService } from './../services/company.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -11,13 +10,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./policy.component.css']
 })
 export class PolicyComponent implements OnInit {
-  public uploader:FileUploader = new FileUploader({
-    isHTML5: true
-  });
-  title: string = 'Company Policy Document';
   companyId: any;
   company: Object;
-  percentDone: number;
   uploadSuccess: boolean;
   durationInSeconds: number;
   policy: any;
