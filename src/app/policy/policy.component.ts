@@ -10,8 +10,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./policy.component.css']
 })
 export class PolicyComponent implements OnInit {
+  title: string = 'Company Policy Document';
   companyId: any;
   company: Object;
+  percentDone: number;
   uploadSuccess: boolean;
   durationInSeconds: number;
   policy: any;

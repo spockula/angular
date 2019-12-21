@@ -46,6 +46,7 @@ import { CmrDepartmentComponent } from './cmr-department/cmr-department.componen
 import { CreateStaffComponent } from './create-staff/create-staff.component';
 import { PolicyComponent } from './policy/policy.component';
 import { MoreComponent } from './more/more.component';
+import { CheckComponent } from './check/check.component';
 
 
 @NgModule({
@@ -77,6 +78,7 @@ import { MoreComponent } from './more/more.component';
     CreateStaffComponent,
     PolicyComponent,
     MoreComponent,
+    CheckComponent,
   ],
   imports: [
     ReactiveFormsModule,

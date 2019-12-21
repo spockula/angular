@@ -49,4 +49,16 @@ getLogo(companyId) {
   return this.httpClient.get(`${this.testUrl}/companylogo/${companyId}/company`);
 }
 
+getCheckingByCompany(companyId, checkIn: boolean) {
+  return this.httpClient.get(`${this.testUrl}/checking/company/${companyId}?checkIn=${checkIn}`);
+}
+
+getCheckingByDepartment(departmentId) {
+  return this.httpClient.get(`${this.testUrl}/checking/department/${departmentId}`);
+}
+
+getCheckingByStaff(staffId) {
+  return this.httpClient.get(`${this.testUrl}/checking/staff/${staffId}`);
+}
+
 }

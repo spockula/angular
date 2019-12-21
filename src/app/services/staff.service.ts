@@ -19,6 +19,10 @@ export class StaffService {
     return this.httpClient.post(`${this.testUrl}/staff/`, staff);
   }
 
+  getStaffId(staffId) {
+    return this.httpClient.get(`${this.testUrl}/staff/${staffId}`);
+  }
+
   getCompanyStaff() {
     let companyId = '';
     if (localStorage.getItem('cu')) {

@@ -23,6 +23,7 @@ import { CmrBranchesComponent } from './cmr-branches/cmr-branches.component';
 import { PolicyComponent } from './policy/policy.component';
 import { CmrDepartmentComponent } from './cmr-department/cmr-department.component';
 import { MoreComponent } from './more/more.component';
+import { CheckComponent } from './check/check.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -45,6 +46,7 @@ const appRoutes: Routes = [
   { path: 'cmrDepartment', component: CmrDepartmentComponent },
   { path: 'policy', component: PolicyComponent },
   { path: 'more', component: MoreComponent },
+  { path: 'check', component: CheckComponent },
   // otherwise redirect to home
   { path: '**', component: NotFoundComponent }
 ];
