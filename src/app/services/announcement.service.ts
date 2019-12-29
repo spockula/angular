@@ -7,7 +7,6 @@ import { environment } from '../../environments/environment';
 })
 export class AnnouncementService {
   API_URL  = environment.apiUrl;
-  testUrl = 'https://peopleappapis.herokuapp.com/v1';
   constructor(private httpClient: HttpClient) { }
 
   getAnnouncements() {
@@ -23,7 +22,7 @@ getCompanyAnnouncements() {
   if (localStorage.getItem('cu')) {
     companyId = JSON.parse(localStorage.getItem('cu'))['companyId'];
   }
-  return this.httpClient.get(`${this.testUrl}/announcement/${companyId}/company`);
+  return this.httpClient.get(`${this.API_URL}/announcement/${companyId}/company`);
 }
 
 }

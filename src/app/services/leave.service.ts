@@ -8,22 +8,21 @@ import { environment } from '../../environments/environment';
 export class LeaveService {
 
   API_URL = environment.apiUrl;
-  testUrl = 'https://peopleappapis.herokuapp.com/v1/';
   currentUser: Object;
 
   constructor(private httpClient: HttpClient) { }
 
   createLeave(companyId, leaveForm: any) {
-    return  this.httpClient.post(`${this.testUrl}leave/${companyId}`, leaveForm);
+    return  this.httpClient.post(`${this.API_URL}leave/${companyId}`, leaveForm);
 
   }
 
 getLeave(companyId) {
-return this.httpClient.get(`${this.testUrl}leave/all/${companyId}`);
+return this.httpClient.get(`${this.API_URL}leave/all/${companyId}`);
 }
 
 updateLeave(companyId) {
-  return this.httpClient.get(`${this.testUrl}leave/all/staff/${companyId}`);
+  return this.httpClient.get(`${this.API_URL}leave/all/staff/${companyId}`);
 }
 
 }

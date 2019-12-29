@@ -7,7 +7,6 @@ import { environment } from '../../environments/environment';
 })
 export class BranchService {
   API_URL  = environment.apiUrl;
-  testUrl = 'https://peopleappapis.herokuapp.com/v1';
 
   constructor(private httpClient: HttpClient) { }
 

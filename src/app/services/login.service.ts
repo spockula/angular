@@ -7,16 +7,15 @@ import { environment } from '../../environments/environment';
 })
 export class LoginService {
   API_URL  = environment.apiUrl;
-  testUrl = 'https://peopleappapis.herokuapp.com/v1';
 
   constructor(private httpClient: HttpClient) { }
 
   doLogin(credentials) {
-    return  this.httpClient.post(`${this.testUrl}/login`, credentials);
+    return  this.httpClient.post(`${this.API_URL}/login`, credentials);
   }
 
   adminLogin(credentials) {
-      return  this.httpClient.post(`${this.testUrl}/admin/login`, credentials);
+      return  this.httpClient.post(`${this.API_URL}/admin/login`, credentials);
   }
 
   companyLogin(credentials) {

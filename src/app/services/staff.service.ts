@@ -7,20 +7,19 @@ import { environment } from '../../environments/environment';
 })
 export class StaffService {
   API_URL = environment.apiUrl;
-  testUrl = 'https://peopleappapis.herokuapp.com/v1';
 
   constructor(private httpClient: HttpClient) { }
 
   getAllStaff() {
-    return this.httpClient.get(`${this.testUrl}/staff`);
+    return this.httpClient.get(`${this.API_URL}/staff`);
   }
 
   createStaff(staff) {
-    return this.httpClient.post(`${this.testUrl}/staff/`, staff);
+    return this.httpClient.post(`${this.API_URL}/staff/`, staff);
   }
 
   getStaffId(staffId) {
-    return this.httpClient.get(`${this.testUrl}/staff/${staffId}`);
+    return this.httpClient.get(`${this.API_URL}/staff/${staffId}`);
   }
 
   getCompanyStaff() {
@@ -28,7 +27,7 @@ export class StaffService {
     if (localStorage.getItem('cu')) {
       companyId = JSON.parse(localStorage.getItem('cu'))['companyId'];
     }
-    return this.httpClient.get(`${this.testUrl}/staff/${companyId}/company`);
+    return this.httpClient.get(`${this.API_URL}/staff/${companyId}/company`);
   }
 
   getBranchStaff(branchId) {
@@ -36,6 +35,6 @@ export class StaffService {
   }
 
   submitCsv(companyId, csv) {
-    return this.httpClient.post(`${this.testUrl}/staff/file/${companyId}`, csv);
+    return this.httpClient.post(`${this.API_URL}/staff/file/${companyId}`, csv);
   }
 }
