@@ -1,0 +1,66 @@
+<app-top></app-top>
+<app-sidebar></app-sidebar>
+
+
+<!-- BEGIN: Page Main-->
+<div id="main">
+  <div class="row">
+    <div class="content-wrapper-before gradient-45deg-indigo-purple"></div>
+    <div class="col s12">
+      <div class="container">
+          <ngx-ui-loader></ngx-ui-loader>
+
+        <div class="row">
+          <div class="col s12 m6 l4">
+            <div class="card padding-4 animate fadeLeft">
+              <div class="col s5 m5">
+                <h5 class="mb-0">{{totalBranches}}</h5>
+                <!-- <p class="no-margin">New</p>
+                <p class="mb-0 pt-8">1,12,900</p> -->
+              </div>
+              <div class="col s7 m7 right-align">
+                <i
+                  class="material-icons background-round mt-5 mb-5 gradient-45deg-purple-amber gradient-shadow white-text">perm_identity</i>
+                <p class="mb-0">Total Branches</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col s12 m6 l4">
+            <div class="card padding-4 animate fadeLeft">
+              <div class="col s5 m5">
+                <h5 class="mb-0">{{totalDepartments}}</h5>
+                <!-- <p class="no-margin">New</p>
+                <p class="mb-0 pt-8">1,12,900</p> -->
+              </div>
+              <div class="col s7 m7 right-align">
+                <i
+                  class="material-icons background-round mt-5 mb-5 gradient-45deg-purple-amber gradient-shadow white-text">perm_identity</i>
+                <p class="mb-0">Total Departments</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col s12 m6 l4">
+            <div class="card padding-4 animate fadeLeft">
+              <div class="col s5 m5">
+                <h5 class="mb-0">{{totalStaff}}</h5>
+                <!-- <p class="no-margin">New</p>
+                <p class="mb-0 pt-8">1,12,900</p> -->
+              </div>
+              <div class="col s7 m7 right-align">
+                <i
+                  class="material-icons background-round mt-5 mb-5 gradient-45deg-purple-amber gradient-shadow white-text">perm_identity</i>
+                <p class="mb-0">Total Staff</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END: Page Main-->
+
+<app-footer></app-footer>

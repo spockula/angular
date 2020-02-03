@@ -1,0 +1,93 @@
+<app-top></app-top>
+<app-sidebar></app-sidebar>
+
+<div id="main">
+  <div class="row">
+    <div class="content-wrapper-before gradient-45deg-indigo-purple"></div>
+    <div class="breadcrumbs-dark pb-0 pt-4" id="breadcrumbs-wrapper">
+      <!-- Search for small screen-->
+      <div class="container">
+        <div class="row">
+          <div class="col s10 m6 l6">
+            <h5 class="breadcrumbs-title mt-0 mb-0">Leave</h5>
+            <ol class="breadcrumbs mb-0">
+              <li class="breadcrumb-item"><a href="/">Office People</a>
+              </li>
+              <li class="breadcrumb-item"><a href="/">Human Resources</a>
+              </li>
+              <li class="breadcrumb-item active">Check Dashboard
+              </li>
+            </ol>
+          </div>
+</div>
+        </div>
+      </div>
+    </div>
+
+<div class="row">
+          <div class="col s12">
+            <div class="card">
+              <div class="card-content">
+                <h4 class="card-title">Check-In Information</h4>
+                <div class="row">
+                  <div class="col s12" style="overflow-x: scroll;">
+                    <table >
+                      <thead>
+                        <tr>
+                        <th>Staff ID</th>
+                        <th>Check-In status</th>
+                        <th>Staff Email</th>
+                        <th>Department ID</th>
+                        <th>Checked-In Image</th>
+                        <th>Checked-In Date</th>
+                        <th>Check-in Time</th>
+                        <th>Checked-In Location</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let check of checkin">
+                          <td>{{check.staffId}}</td>
+                          <td>{{check.checkIn}}</td>
+                          <td>{{check.email}}</td>
+                          <td>{{check.departmentId}}</td>
+                          <td><img src={{check.imageUrl}} height = "100" /></td>
+                          <td>{{check.date}}</td>
+                          <td>{{check.time}}</td>
+                          <td>{{check.location}}</td>
+                        </tr>
+                        </tbody>
+                          <br>
+                          <br>
+                          <h4 class="card-title">Check-Out Information</h4>
+                        <thead>
+                        <th>Staff ID</th>
+                        <th>Checked-Out status</th>
+                        <th>Checked-Out Image</th>
+                        <th>Checked-Out Date</th>
+                        <th>Checked-Out Time</th>
+                        <th>Checked-Out Location</th>
+                        <th>Action</th>
+                      </thead>
+                      <tbody>
+                         <tr *ngFor="let checkout of checkOut">
+                          <td>{{checkout.staffId}}</td>
+                          <td>{{checkoutStatus}}</td>
+                          <td><img src={{checkout.imageUrl}} height = "100" /></td>
+                          <td>{{checkout.date}}</td>
+                          <td>{{checkout.time}}</td>
+                          <td>{{checkout.location}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    
+    </div>
+
+
+<app-footer></app-footer>

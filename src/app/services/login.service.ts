@@ -6,12 +6,20 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class LoginService {
-  API_URL = environment.apiUrl;
-  userData: any;
+  API_URL  = environment.apiUrl;
 
   constructor(private httpClient: HttpClient) { }
 
-  login(loginData) {
-    return this.httpClient.post(`${this.API_URL}/login/`, loginData);
+  doLogin(credentials) {
+    return  this.httpClient.post(`${this.API_URL}/login`, credentials);
   }
+
+  adminLogin(credentials) {
+      return  this.httpClient.post(`${this.API_URL}/admin/login`, credentials);
+  }
+
+  companyLogin(credentials) {
+    return  this.httpClient.post(`${this.API_URL}/company/`, credentials);
+}
+
 }

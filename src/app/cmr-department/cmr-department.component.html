@@ -1,0 +1,174 @@
+<app-top></app-top>
+<app-cmr-sidebar></app-cmr-sidebar>
+
+<!-- BEGIN: Page Main-->
+<div id="main">
+  <div class="row">
+    <div class="content-wrapper-before gradient-45deg-indigo-purple"></div>
+    <div class="breadcrumbs-dark pb-0 pt-4" id="breadcrumbs-wrapper">
+      <!-- Search for small screen-->
+      <div class="container">
+        <div class="row">
+          <div class="col s10 m6 l6">
+            <h5 class="breadcrumbs-title mt-0 mb-0">Department</h5>
+            <ol class="breadcrumbs mb-0">
+              <li class="breadcrumb-item"><a href="/">Office People</a>
+              </li>
+              <li class="breadcrumb-item"><a href="/">Human Resources</a>
+              </li>
+              <li class="breadcrumb-item active">Department
+              </li>
+            </ol>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="col s12">
+      <div class="container">
+          <ngx-ui-loader></ngx-ui-loader>
+        <div class="row">
+
+          <div class="col s12 m6 l6">
+            <div id="placeholder" class="card card card-default scrollspy">
+              <div class="card-content">
+                <h4 class="card-title">Create New Department</h4>
+                <form class="col s12" [formGroup] = "form" (ngSubmit)="createDepartment()" novalidate>
+
+
+                  <!-- <div class="row">
+                    <div class="input-field col s12">
+                      <select id="companyId" formControlName="department.companyId" name="companyId">
+                        <option value="" disabled selected>Choose your Company</option>
+                        <option *ngFor="let coy of companies['data']" [ngValue]="coy.companyId">{{coy.company_name}}
+                        </option>
+                      </select>
+                      <label for="companyId">Company</label>
+                    </div>
+                  </div> -->
+
+                  <!-- <select >
+                  <option *ngFor="let coy of companies['data']" > {{coy.company_name}}</option>
+                  </select>  -->
+
+                  <!-- {{companies.data|json}} -->
+                  <!--
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <select id="branchId" formControlName="staff.branchId" name="branchId">
+                        <option value="" disabled selected>Choose your Branch</option>
+                        <option *ngFor="let branch of branches['data']" [ngValue]="branch.branchId">{{branch.branchName}}
+                        </option>
+                      </select>
+                      <label for="branchId">Branch</label>
+                    </div>
+                  </div> -->
+
+
+
+                <div class="row">
+                    <div class="input-field col s12">
+                      <input placeholder="Company ID" formControlName="companyId" type="text"
+                        class="form-control" name="companyId" id="companyId">
+                      <label for="companyId">Company ID</label>
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input placeholder="Department Name" formControlName="name" type="text"
+                        class="form-control" name="name" id="name">
+                      <label for="name">Department Name</label>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input placeholder="Department Email" formControlName="email" type="text"
+                        class="form-control" name="email" id="email">
+                      <label for="email">Department Email</label>
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input placeholder="Department Description" formControlName="description" type="text"
+                        class="form-control" name="description" id="description">
+                      <label for="description">Department Description</label>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <button class="btn cyan waves-effect waves-light right" type="submit" name="action" [disabled]="!form.valid">
+                          <i class="material-icons left">add_circle_outline</i>
+                          Add Department
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+
+        <div class="row">
+          <div class="col s12">
+            <div class="card">
+              <div class="card-content">
+                <h4 class="card-title">Your Departments</h4>
+                <div class="row">
+                  <div class="col s12">
+                    <table id="page-length-option" class="display">
+                      <thead>
+                        <tr>
+                          <th>Department ID</th>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Description</th>
+                          <th>Company ID</th>
+
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let dept of departments['data']">
+                          <td>{{dept.departmentId}}</td>
+                          <td>{{dept.name}}</td>
+                          <td>{{dept.email}}</td>
+                          <td>{{dept.description}}</td>
+                          <td>{{dept.companyId}}</td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <th>Department ID</th>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Description</th>
+                          <th>Company ID</th>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END: Page Main-->
+
+
+<app-footer></app-footer>
+
