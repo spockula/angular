@@ -1,0 +1,13 @@
+export class Announcement {
+    title?: string;
+    location?: string;
+    date?: string;
+    time?: string;
+    announcement_img_url?: string;
+    companyId?: string;
+    announcementId?: string;
+    status?: string;
+    constructor() {
+
+    }
+}

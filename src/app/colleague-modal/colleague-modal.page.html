@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar color="primary" >
+    <ion-title>Guest Staff Check In</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="dashboard"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+ <form #form="ngForm" (ngSubmit) = "sendStaffId(form)" method="post">
+
+  <ion-card class="ion-margin-top">
+  <ion-card-subtitle>
+<b> <p class="ion-text-center"> Enter Colleague's Staff Email: </p> </b>
+  </ion-card-subtitle>
+        <ion-item>
+            <ion-input ngModel name = "staffEmail" type="email" placeholder="Staff Email"></ion-input>
+          </ion-item>
+
+        <div class="ion-padding">
+          <ion-button expand="block" type="submit">Enter</ion-button>
+        </div>
+  </ion-card>
+  </form>
+
+</ion-content>

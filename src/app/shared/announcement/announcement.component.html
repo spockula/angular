@@ -1,0 +1,10 @@
+<ion-card *ngIf="announcement">
+  <ion-img src="assets/images/announcement.jpg"></ion-img>
+  <ion-card-content>
+    <ion-card-subtitle>{{announcement.title}}</ion-card-subtitle>
+    <span>Where: {{announcement.location}}<br>
+      When: {{announcement.date}} <br>
+      From: {{announcement.time}}
+    </span>
+  </ion-card-content>
+</ion-card>

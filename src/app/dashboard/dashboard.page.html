@@ -1,0 +1,144 @@
+ <ion-menu side="end" content-id="content" style="--width: 250px; --height: 60%; padding-top: 50px;">
+      <ion-content>
+      <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+        <ion-list>
+          <ion-item (click)="goToProfile()">
+            <ion-icon name="person" slot="start"></ion-icon>
+            <ion-label>Profile</ion-label>
+          </ion-item>
+
+          <ion-item (click)="goToPolicy()" tappable>
+           <ion-icon name="clipboard" slot="start"></ion-icon>
+            <ion-label>Policy</ion-label>
+          </ion-item>
+
+          <ion-item (click)="goToCheckin()" tappable>
+            <ion-icon name="timer" slot="start"></ion-icon>
+            <ion-label>Clock-In & Out</ion-label>
+          </ion-item>
+
+          <ion-item (click)="goToLeave()" tappable>
+            <ion-icon name="qr-scanner" slot="start"></ion-icon>
+            <ion-label>Leave Tracker</ion-label>
+          </ion-item>
+
+          <ion-item (click)="goToApprove()" tappable>
+           <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+            <ion-label>Approvals</ion-label>
+          </ion-item>
+
+           <ion-item>
+            <ion-icon name="arrow-dropright-circle" slot="start"></ion-icon>
+            <ion-label>LMS (Soon)</ion-label>
+          </ion-item>
+
+           <ion-item >
+            <ion-icon name="text" slot="start"></ion-icon>
+            <ion-label>Messenger (Soon)</ion-label>
+          </ion-item>
+
+           <ion-item (click)="logout()" tappable>
+            <ion-icon name="power" slot="start"></ion-icon>
+            <ion-label>Signout</ion-label>
+          </ion-item>
+
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="content" main></ion-router-outlet>
+
+
+<ion-header color="primary">
+  <ion-toolbar color="primary">
+  <ion-buttons slot="end">
+            <ion-menu-button autoHide="false"></ion-menu-button>
+          </ion-buttons>
+    <ion-img src="assets/images/OfficePeople_Logo.png" style="width:30%"></ion-img>
+    <ion-chip slot="start" (click)="goToProfile()" tappable>
+      <ion-avatar>
+        <img [src] ="image">
+      </ion-avatar>
+      
+    </ion-chip>
+
+    <!-- <ion-buttons color="success" size="large" slot="end">
+      <ion-button size="large" (click)="presentPopover($event)">
+        <ion-icon name="more"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+    
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+
+  <ion-router-outlet main></ion-router-outlet>
+
+
+  <mat-tab-group mat-stretch-tabs backgroundColor="primary">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <p>
+          <mat-icon class="example-tab-icon">dashboard</mat-icon>
+          <br>
+          <!-- Dashboard -->
+        </p>
+
+      </ng-template>
+      <div >
+        <app-announcement></app-announcement>
+        <app-work-anniversary></app-work-anniversary>
+        <app-birthday></app-birthday>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="First">
+      <ng-template mat-tab-label>
+        <p>
+          <mat-icon class="example-tab-icon">gamepad</mat-icon>
+          <br>
+          <!-- Departments -->
+        </p>
+      </ng-template>
+      <div >
+          <app-departments></app-departments>
+      </div>
+    </mat-tab>
+    <mat-tab label="Second">
+      <ng-template mat-tab-label>
+        <p>
+          <mat-icon class="example-tab-icon">device_hub</mat-icon>
+          <br>
+          <!-- Branches -->
+        </p>
+      </ng-template>
+      <div >
+          <app-branches></app-branches>
+      </div>
+    </mat-tab>
+    
+    <mat-tab label="Third">
+      <ng-template mat-tab-label>
+        <p>
+          <mat-icon class="example-tab-icon">perm_contact_calendar</mat-icon>
+          <br>
+          <!-- Names -->
+        </p>
+      </ng-template>
+      <div >
+          <app-names></app-names>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+
+
+</ion-content>

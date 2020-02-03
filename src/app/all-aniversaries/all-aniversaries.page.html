@@ -1,0 +1,39 @@
+
+<div *ngIf="anniversaries">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="dashboard"></ion-back-button>
+      </ion-buttons>
+      <ion-title>All Aniversaries</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+  
+    <ion-row align-items-center *ngFor="let ann of anniversaries">
+      <ion-col>
+        <ion-card>
+          <ion-img src="{{ann.profile_pix_url}}"></ion-img>
+          <ion-card-content>
+            <ion-card-subtitle>{{ann.staff_name}}</ion-card-subtitle>
+            <span style="font-size:8px">{{ann.department}}</span><br>
+            <span style="font-size:8px">Joined: {{ann.date_joined}} </span>
+            <ion-row align-items-center>
+              <ion-col>
+                <ion-button color="success" size="small" style="float:left" href="tel:{{ann.phone}}">
+                  <ion-icon name="call"></ion-icon>
+                </ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button color="success" size="small" style="float:right" (click)="shareViaEmail(ann)">
+                  <ion-icon name="mail"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-content>
+</div>

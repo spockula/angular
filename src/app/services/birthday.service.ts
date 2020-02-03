@@ -1,30 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { LoginService } from './login.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BirthdayService {
-
   API_URL = environment.apiUrl;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private loginService: LoginService) { }
 
   getBirthdays() {
-    return this.httpClient.get(`${this.API_URL}/birthday`);
+    let companyId  =  JSON.stringify(this.loginService.userData['data']['message']['data']['companyId']);
+    var noQuotes = companyId.split('"').join('');
+    return this.httpClient.get(`${this.API_URL}/birthday/${noQuotes}/company`);
   }
 
-  createBirthday(birthday: any) {
-    return this.httpClient.post(`${this.API_URL}/birthday/`, birthday);
-  }
-
-  getCompanyBirthdays() {
-    let companyId = '';
-    if (localStorage.getItem('cu')) {
-      companyId = JSON.parse(localStorage.getItem('cu'))['companyId'];
-    }
-
+  getCompanyBirthdays(companyId) {
     return this.httpClient.get(`${this.API_URL}/birthday/${companyId}/company`);
   }
 }

@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar color="primary" >
+    <ion-title>Make Request</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+
+<ion-card>
+    <ion-col>
+        <ion-avatar style="margin-left: auto; margin-right: auto;">
+          <img [src] ="image">
+        </ion-avatar>
+         <ion-item>
+      <!-- <ion-icon name="square" slot="start"></ion-icon> -->
+      <i class="material-icons" slot="start">
+        person_outline
+      </i>
+      <ion-label text-wrap>Surname - <b>{{staff.surname}}</b></ion-label>
+    </ion-item>
+
+    <ion-item>
+      <!-- <ion-icon name="square" slot="start"></ion-icon> -->
+      <i class="material-icons" slot="start">
+        person_outline
+      </i>
+      <ion-label text-wrap>Othernames - {{staff.othernames}}</ion-label>
+    </ion-item>
+    </ion-col>
+    </ion-card>
+
+    <form #form="ngForm" (ngSubmit) = "sendPostRequest(form)" method="post">
+    <ion-card>
+     <ion-item >
+          <ion-label floating>Select Leave</ion-label>
+          <ion-select interface="popover" [(ngModel)]="leaveTypeValue" name="leaveType" 
+          [selectedText]="leaveTypeValue" (ionChange)="leaveSelected()" required >
+            <ion-select-option *ngFor="let leave of leaveType" value="{{leave}}"> {{ leave }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+  </ion-card>
+
+  <ion-card>
+        <ion-item>
+          <ion-label floating>Start Date</ion-label>
+          <ion-datetime min="1980" value="2016-02-20" placeholder="Select Date" ngModel name = "startDate"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>Ends</ion-label>
+          <ion-datetime min= "1990" value="2016-02-20" placeholder="Select Date" ngModel name = "endDate"></ion-datetime>
+        </ion-item>
+
+        <ion-item>
+            <ion-label position="stacked">Type Reasons for Leave Application.</ion-label>
+            <ion-textarea ngModel name = "leaveReason" ></ion-textarea>
+          </ion-item>
+
+        <div class="ion-padding">
+          <ion-button expand="block" type="submit" class="ion-no-margin">Submit Leave Request</ion-button>
+        </div>
+  </ion-card>
+  </form>
+</ion-content>

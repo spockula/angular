@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button ion-button (click)="closeModal()">Close</ion-button>
+    </ion-buttons>
+    <ion-title>Company Policy</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+<ion-card>   
+    <pdf-viewer [src]="display" 
+                  [render-text]="true"
+                  style="display: block;"
+                  [show-all]="true"
+                  [original-size]="false"
+                  [autoresize]="true"
+                  [stick-to-page]="true"
+                  [fit-to-page]="false"
+                  [zoom]="0.8"
+                  max-width = "500px"
+    
+      ></pdf-viewer>   
+</ion-card>
+  
+</ion-content>

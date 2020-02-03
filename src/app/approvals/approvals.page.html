@@ -1,0 +1,90 @@
+<ion-header>
+<ion-toolbar color="primary">
+<ion-title>Approvals Page</ion-title>
+  <ion-buttons slot="start">
+      <ion-back-button defaultHref="dashboard"></ion-back-button>
+    </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+<ion-card>
+  <ion-card-header style="margin-left: auto; margin-right: auto;">
+    All Requests 
+  </ion-card-header>
+</ion-card>
+
+<form #form="ngForm" method="post">
+  <ion-card>
+  <ion-card-header align-self-center text-center>
+    Active Requests (For HR)
+  </ion-card-header>
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-item *ngFor="let request of requests" (click)="doConfirm(i)">
+          <ion-card>
+          <ion-card-content>
+            <ion-col align-self-center text-center>
+            <ion-icon name="calendar"></ion-icon>
+            <b> Start Date:</b> {{ request.startDate }}  <br> 
+            <br>
+            <ion-icon name="calendar"></ion-icon>
+            <b> End Date: </b> {{ request.endDate }} <br>
+            <br>
+            <ion-icon name="expand"></ion-icon>
+            <b> Leave Type: </b> {{ request.leaveType }}  <br>
+            <br>
+            <ion-icon name="list-box"></ion-icon>
+            <b> Reason for Leave: </b> {{ request.leaveReason }}
+            <br>
+            <br>
+            <ion-note>
+              click on Request for options.
+            </ion-note>
+            </ion-col> <br>
+            </ion-card-content>
+            </ion-card>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+  <ion-card>
+  <ion-card-header align-self-center text-center>
+    Pending Requests (For Line Manager)
+  </ion-card-header>
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-item *ngFor="let pending of pendings" (click)="doConfirm(i)">
+          <ion-card>
+          <ion-card-content>
+            <ion-col align-self-center text-center>
+            <ion-icon name="calendar"></ion-icon>
+            <b> Start Date:</b> {{ pending.startDate }}  <br> 
+            <br>
+            <ion-icon name="calendar"></ion-icon>
+            <b> End Date: </b> {{ pending.endDate }} <br>
+            <br>
+            <ion-icon name="expand"></ion-icon>
+            <b> Leave Type: </b> {{ pending.leaveType }}  <br>
+            <br>
+            <ion-icon name="list-box"></ion-icon>
+            <b> Reason for Leave: </b> {{ pending.leaveReason }}
+            <br>
+            <br>
+            <ion-note>
+              click on Request for options.
+            </ion-note>
+            </ion-col> <br>
+            </ion-card-content>
+            </ion-card>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+</form>
+</ion-content>

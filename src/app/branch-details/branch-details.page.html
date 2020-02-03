@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Staff of {{branch.branchName}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- {{branch|json}} -->
+  <ion-card>
+    <!-- <p text-center>Staff information for {{branch.branchName}}</p> -->
+    <!-- <ion-item href="#">
+      <ion-icon name="square" slot="start"></ion-icon>
+      <ion-label text-wrap>{{branch.branchName}}</ion-label>
+    </ion-item>
+
+    <ion-item href="tel:{{branch.phoneNo}}">
+      <ion-icon name="call" slot="start"></ion-icon>
+      <ion-label text-wrap>{{branch.phoneNo}}</ion-label>
+    </ion-item>
+
+    <ion-item href="mailto:{{branch.email}}">
+      <ion-icon name="mail" slot="start"></ion-icon>
+      <ion-label text-wrap>{{branch.email}}</ion-label>
+    </ion-item>
+
+    <ion-item href="#">
+      <ion-icon name="locate" slot="start"></ion-icon>
+      <ion-label text-wrap>{{branch.address}}</ion-label>
+    </ion-item> -->
+
+    <!-- <ion-list>
+        <ion-item *ngFor="let stf of staff" (click)="goToStaffDetails(stf)" detail>
+          <ion-avatar slot="start">
+            <img src="assets/images/avatar.png">
+          </ion-avatar>
+          <ion-label text-wrap>{{stf.surname}} - {{stf.othernames}} </ion-label>
+          <span> {{stf.department}} </span>
+        </ion-item>
+      </ion-list> -->
+
+
+      <mat-list>
+          <h3 mat-subheader>Staff of {{branch.branchName}}</h3>
+          <mat-list-item *ngFor="let stf of staff" (click)="goToStaffDetails(stf)" detail>
+        
+            <div class="circle" matListAvatar style="width:40px; height:40px;">
+              <div class="circle__inner">
+                <div class="circle__wrapper">
+                  <div class="circle__content">{{stf.surname | slice:0:1 | uppercase}}{{stf.othernames | slice:0:1 | uppercase}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <h4 mat-line>{{stf.surname}} - {{stf.othernames}}</h4>
+            <p mat-line> {{stf.department}} - {{stf.departmentId}}</p>
+            <mat-divider></mat-divider>
+            <ion-icon name="arrow-dropright" end></ion-icon>
+          </mat-list-item>
+        </mat-list>
+
+  </ion-card>
+
+</ion-content>

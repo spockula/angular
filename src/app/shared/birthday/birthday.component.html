@@ -1,0 +1,35 @@
+<div *ngIf="selectedBirthdays">
+  <ion-row align-items-center>
+    <ion-col>
+      <span>Birthdays</span>
+    </ion-col>
+    <ion-col>
+      <ion-button color="primary" size="small" style="float:right" (click) = "goToAllBirthday()">View All</ion-button>
+    </ion-col>
+  </ion-row>
+
+  <ion-row align-items-center>
+    <ion-col *ngFor="let birthday of selectedBirthdays">
+      <ion-card>
+        <ion-img src='{{birthday.profile_pix_url}}'></ion-img>
+        <ion-card-content>
+          <ion-card-subtitle (click)="goToStaffDetails(birthday)" > <a>{{birthday.staff_name}}</a> </ion-card-subtitle>
+          <span style="font-size:8px">{{birthday.department}}</span><br>
+          <span style="font-size:8px">Date of Birth: {{birthday.date_of_birth}}</span>
+          <ion-row align-items-center>
+            <ion-col>
+              <ion-button color="success" size="small" style="float:left" href="tel:{{birthday.phone}}">
+                <ion-icon name="call"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button color="success" size="small" style="float:right" (click)="shareViaEmail(birthday)">
+                <ion-icon name="mail"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</div>
