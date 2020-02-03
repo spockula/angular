@@ -22,7 +22,7 @@ export class CmrBranchesComponent implements OnInit {
   address = new FormControl('', Validators.required);
   companyId = new FormControl('', Validators.required);
 
-  constructor(private branchService: BranchService, private companyService: CompanyService, fb: FormBuilder) { 
+  constructor(private branchService: BranchService, private companyService: CompanyService, fb: FormBuilder) {
     this.form = fb.group({
       'branchName': this.branchName,
       'phoneNo': this.phoneNo,
@@ -31,7 +31,7 @@ export class CmrBranchesComponent implements OnInit {
       'companyId': this.companyId
   });
   }
-  
+
   ngOnInit() {
     this.getBranches();
     this.getCompanies();

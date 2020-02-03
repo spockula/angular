@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment';
 })
 export class CompanyService {
   API_URL = environment.apiUrl;
+
   currentUser: Object;
 
   constructor(private httpClient: HttpClient) { }

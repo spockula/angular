@@ -26,11 +26,6 @@ export class CheckComponent implements OnInit {
   public async getCheckIn() {
     this.companyService.getCheckingByCompany(this.companyId, true).subscribe((data: Array<object>) => {
      this.checkin = data['data'];
-     // let staffId = [];
-     // for (let c of this.checkin) {
-     // staffId = c.staffId;
-      //console.log(staffId);
-     //}
      console.log('=>', this.checkin);
     }, err => {
       console.log(err);
@@ -40,7 +35,7 @@ export class CheckComponent implements OnInit {
 
   public async getCheckOut() {
     this.companyService.getCheckingByCompany(this.companyId, false).subscribe((data: Array<object>) => {
-      if (data){
+      if (data) {
         this.checkoutStatus = true;
         console.log(this.checkoutStatus);
     }

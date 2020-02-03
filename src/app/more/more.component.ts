@@ -9,7 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class MoreComponent implements OnInit {
   fileData: File = null;
-  previewUrl:any = null;
+  previewUrl: any = null;
   logoPreviewUrl: any = null;
   fileUploadProgress: string = null;
   companyId: any;
@@ -31,7 +31,7 @@ export class MoreComponent implements OnInit {
     });
   }
 
-   
+
   fileProgress(fileInput: any) {
     this.fileData = <File>fileInput.target.files[0];
     if ( /\.(jpe?g|png)$/i.test(this.fileData.name) === false  ) {
@@ -53,33 +53,33 @@ export class MoreComponent implements OnInit {
 }
 
   updatepreview() {
-    // Show preview 
-    var mimeType = this.fileData.type;
+    // Show preview
+    const mimeType = this.fileData.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
- 
-    var reader = new FileReader();      
-    reader.readAsDataURL(this.fileData); 
-    reader.onload = (_event) => { 
-      this.logoPreviewUrl = reader.result; 
-    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (_event) => {
+      this.logoPreviewUrl = reader.result;
+    };
   }
 
   preview() {
-    // Show preview 
-    var mimeType = this.fileData.type;
+    // Show preview
+    const mimeType = this.fileData.type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
- 
-    var reader = new FileReader();      
-    reader.readAsDataURL(this.fileData); 
-    reader.onload = (_event) => { 
-      this.previewUrl = reader.result; 
-    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (_event) => {
+      this.previewUrl = reader.result;
+    };
   }
-   
+
   onSubmit() {
       const formData = new FormData();
       formData.append('logo', this.fileData);
@@ -89,7 +89,7 @@ export class MoreComponent implements OnInit {
         .subscribe(res => {
           console.log(res);
           this.openSnackBar();
-        }) 
+        });
   }
 
   update() {
@@ -99,14 +99,14 @@ export class MoreComponent implements OnInit {
         .subscribe(res => {
           console.log(res);
          this.openSnackBar();
-        }) 
+        });
 
   }
 
   openSnackBar() {
-    this._snackBar.open("Successfully uploaded Logo", "uploaded", {
+    this._snackBar.open('Successfully uploaded Logo', 'uploaded', {
       duration: this.durationInSeconds * 1000
-    })
+    });
   }
 
   getLogo() {
@@ -114,7 +114,7 @@ export class MoreComponent implements OnInit {
       console.log('this is uploaded logo', data);
       this.updatedLogo = data['data'][0]['logo_url'];
       console.log('this is uploaded logo', this.updatedLogo);
-    })
+    });
   }
 
 }

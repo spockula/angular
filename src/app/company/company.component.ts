@@ -45,15 +45,15 @@ export class CompanyComponent implements OnInit {
   }
 
   openSnackBar() {
-    this._snackBar.open("Successfully Created New Company", "Created", {
+    this._snackBar.open('Successfully Created New Company', 'Created', {
       duration: this.durationInSeconds * 1000
-    })
+    });
   }
 
   closeSnackBar() {
-    this._snackBar.open("Something went wrong! We could not create New company", "Error", {
+    this._snackBar.open('Something went wrong! We could not create New company', 'Error', {
       duration: this.durationInSeconds * 1000
-    })
+    });
   }
 
 }

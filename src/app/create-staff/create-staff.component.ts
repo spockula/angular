@@ -133,7 +133,13 @@ export class CreateStaffComponent implements OnInit {
     files.append('files', this.selectedFile, this.selectedFile.name);
       this.companyId = this.staffs.companyId;
     this.staffService.submitCsv(this.companyId, files).subscribe(csv => {
-      this.openSnackBar();
+      console.log('this is uploaded data', csv);
+      if (csv['data']['errorFromSaving']) {
+       this.unsavedSnackBar();
+      } else {
+        this.openSnackBar();
+      }
+
     } , err => {
       console.log('this is error', err['error']['message']);
       alert(err['error']['message']);
@@ -175,19 +181,34 @@ export class CreateStaffComponent implements OnInit {
   }
 
   openSnackBar() {
-    this._snackBar.open("Successfully uploaded Staff", "uploaded", {
+    this._snackBar.open('Successfully uploaded Staff', 'uploaded', {
       duration: this.durationInSeconds * 1000
-    })
+    });
+  }
+
+  emailSnackBar() {
+    this._snackBar.open('Could not save some staff because Email already exist.', 'Email Already saved', {
+      duration: this.durationInSeconds * 1000
+    });
+  }
+
+  unsavedSnackBar() {
+    // tslint:disable-next-line:quotemark
+    // tslint:disable-next-line:max-line-length
+    this._snackBar.open('Some staff could not be saved. Use the preview option to see staff without required data and make necessary corrections', 'Error saving some staff', {
+      duration: this.durationInSeconds * 3000
+    });
   }
 
   downloadFile() {
+    // tslint:disable-next-line:max-line-length
     const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTIngBeZzWRtWn81mzxomibZjW73zo9QX-qVrJIzeJOt7Xj0r0swIuqaCelKFDoMbs6Rkh1wT2VozY1/pub?output=xlsx';
       this.httpClient.get(url, {responseType: 'arraybuffer'})
       .subscribe((res) => {
           this.writeContents(res, 'staff.xlsx', 'xlsx/excel'); // file extension
       });
   }
-  
+
   writeContents(content, fileName, contentType) {
       const a = document.createElement('a');
       const file = new Blob([content], {type: contentType});

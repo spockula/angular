@@ -16,7 +16,6 @@ import { AuthGuard } from './_guards';
 import { CompanyComponent } from './company/company.component';
 import { BranchComponent } from './branch/branch.component';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
 
@@ -45,8 +44,10 @@ import { CmrBranchesComponent } from './cmr-branches/cmr-branches.component';
 import { CmrDepartmentComponent } from './cmr-department/cmr-department.component';
 import { CreateStaffComponent } from './create-staff/create-staff.component';
 import { PolicyComponent } from './policy/policy.component';
+import {FileSelectDirective} from 'ng2-file-upload';
 import { MoreComponent } from './more/more.component';
 import { CheckComponent } from './check/check.component';
+import { UpdateComponent } from './update/update.component';
 
 
 @NgModule({
@@ -59,7 +60,6 @@ import { CheckComponent } from './check/check.component';
     CompanyComponent,
     BranchComponent,
     LoginComponent,
-    RegisterComponent,
     NotFoundComponent,
     AlertComponent,
     DepartmentComponent,
@@ -77,8 +77,10 @@ import { CheckComponent } from './check/check.component';
     CmrDepartmentComponent,
     CreateStaffComponent,
     PolicyComponent,
+    FileSelectDirective,
     MoreComponent,
     CheckComponent,
+    UpdateComponent,
   ],
   imports: [
     ReactiveFormsModule,

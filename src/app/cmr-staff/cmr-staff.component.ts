@@ -88,7 +88,6 @@ export class CmrStaffComponent implements OnInit {
     // this.getDepartments()
     this.getStaff();
   }
- 
 
   public getStaff() {
     this.staffService.getAllStaff().subscribe((data: Array<object>) => {
@@ -158,7 +157,7 @@ uploadFile(event, form) {
       alert('please enter company ID to upload staff.');
       this.ngxService.stop();
     } else {
-    let companyId = form.value.companyId;
+    const companyId = form.value.companyId;
   this.staffService.submitCsv(companyId, files).subscribe(csv => {
       console.log('sent', csv);
       this.openSnackBar();
@@ -167,7 +166,7 @@ uploadFile(event, form) {
     alert(err['error']['message']);
     this.ngxService.stop();
   }); }
-  
+
 }
 
   public getDepartments() {
@@ -178,13 +177,14 @@ uploadFile(event, form) {
   }
 
   downloadFile() {
+    // tslint:disable-next-line:max-line-length
     const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTIngBeZzWRtWn81mzxomibZjW73zo9QX-qVrJIzeJOt7Xj0r0swIuqaCelKFDoMbs6Rkh1wT2VozY1/pub?output=xlsx';
       this.httpClient.get(url, {responseType: 'arraybuffer'})
       .subscribe((res) => {
           this.writeContents(res, 'staff.xlsx', 'xlsx/excel'); // file extension
       });
   }
-  
+
   writeContents(content, fileName, contentType) {
       const a = document.createElement('a');
       const file = new Blob([content], {type: contentType});
@@ -194,9 +194,9 @@ uploadFile(event, form) {
     }
 
 openSnackBar() {
-  this._snackBar.open("Successfully uploaded Staff", "uploaded", {
+  this._snackBar.open('Successfully uploaded Staff', 'uploaded', {
     duration: this.durationInSeconds * 1000
-  })
+  });
 }
 
 }

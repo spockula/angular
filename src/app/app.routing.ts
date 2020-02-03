@@ -5,7 +5,6 @@ import { AuthGuard } from './_guards';
 import { CompanyComponent } from './company/company.component';
 import { BranchComponent } from './branch/branch.component';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { DepartmentComponent } from './department/department.component';
 import { AnnouncementComponent } from './announcement/announcement.component';
@@ -24,6 +23,7 @@ import { PolicyComponent } from './policy/policy.component';
 import { CmrDepartmentComponent } from './cmr-department/cmr-department.component';
 import { MoreComponent } from './more/more.component';
 import { CheckComponent } from './check/check.component';
+import { UpdateComponent } from './update/update.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -38,7 +38,6 @@ const appRoutes: Routes = [
   { path: 'cmrDashboard', component: CmrDashboardComponent },
   { path: 'leave', component: LeaveComponent },
   { path: 'cmrLogin', component: CmrLoginComponent },
-  { path: 'register', component: RegisterComponent },
   { path: 'admin-register', component: AdminRegisterComponent },
   { path: 'companyReg' , component: CompanyRegisterComponent },
   { path: 'cmrStaff', component: CmrStaffComponent, canActivate: [AuthGuard] },
@@ -47,6 +46,7 @@ const appRoutes: Routes = [
   { path: 'policy', component: PolicyComponent },
   { path: 'more', component: MoreComponent },
   { path: 'check', component: CheckComponent },
+  { path: 'update', component: UpdateComponent },
   // otherwise redirect to home
   { path: '**', component: NotFoundComponent }
 ];
