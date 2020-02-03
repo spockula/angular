@@ -21,6 +21,7 @@ export class UpdateComponent implements OnInit {
   successMessage: string;
   IsResetFormValid = true;
   errorPassword: string;
+  ResetPassword: any;
 
   constructor(private ngxService: NgxUiLoaderService, private registerService: RegisterService,
     private route: ActivatedRoute, private router: Router,  private fb: FormBuilder,
@@ -33,31 +34,35 @@ export class UpdateComponent implements OnInit {
 
 
 
-  public ResetPassword(registerForm: NgForm) {
+  public updatePassword(registerForm: NgForm) {
     this.ngxService.start();
-    console.log(registerForm);
-    if (registerForm.valid) {
-      this.IsResetFormValid = true;
-      if (this.ResponseResetForm.value.confirm === this.ResponseResetForm.value.password) {
-        this.ResetPassword = this.ResponseResetForm.value.password;
-      } else {
-        this.errorPassword = 'Passwords do not match, try again';
+    console.log(registerForm.value);
+    this.ResponseResetForm = registerForm.value;
+    console.log(this.ResponseResetForm['passcode']);
+      if (this.ResponseResetForm['confirm'] === this.ResponseResetForm['passcode']) {
+        this.ResetPassword = this.ResponseResetForm['passcode'];
+        this.staffService.newPassword({
+          branchId: this.branchId,
+          password: this.ResetPassword
+        }).subscribe(
+          data => {
+            registerForm.resetForm();
+            this.ResponseResetForm = registerForm.value;
+            this.successMessage = data.message;
+            setTimeout(() => {
+              this.successMessage = null;
+              this.router.navigate(['welcome']);
+            }, 3000);
+            this.ngxService.stop();
+          }
+        );
       }
-      this.staffService.newPassword({
-        branchId: this.branchId,
-        password: this.ResetPassword
-      }).subscribe(
-        data => {
-          this.ResponseResetForm.reset();
-          this.successMessage = data.message;
-          setTimeout(() => {
-            this.successMessage = null;
-            this.router.navigate(['sign-in']);
-          }, 3000);
-          this.ngxService.stop();
-        }
-      );
-    } else { this.IsResetFormValid = false; }
+      if (this.ResponseResetForm['confirm'] !== this.ResponseResetForm['passcode']) {
+        this.errorPassword = 'Passwords do not match, try again';
+        registerForm.resetForm();
+        this.ResponseResetForm = registerForm.value;
+        this.ngxService.stop();
+      }
   }
 
 }

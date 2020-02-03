@@ -24,6 +24,9 @@ import { CmrDepartmentComponent } from './cmr-department/cmr-department.componen
 import { MoreComponent } from './more/more.component';
 import { CheckComponent } from './check/check.component';
 import { UpdateComponent } from './update/update.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -47,6 +50,8 @@ const appRoutes: Routes = [
   { path: 'more', component: MoreComponent },
   { path: 'check', component: CheckComponent },
   { path: 'update', component: UpdateComponent },
+  { path: 'reset', component: ResetPasswordComponent },
+  { path: 'welcome', component: WelcomeComponent },
   // otherwise redirect to home
   { path: '**', component: NotFoundComponent }
 ];

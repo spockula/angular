@@ -5,7 +5,7 @@
       <div id="login-page" class="row">
         <div class="col s12 m6 l4 z-depth-4 card-panel border-radius-6 login-card bg-opacity-8">
 
-          <form class="pt-3" #registerForm="ngForm" (ngSubmit)="ResetPassword(registerForm)" novalidate>
+          <form class="pt-3" #registerForm="ngForm" (ngSubmit)="updatePassword(registerForm)" novalidate>
                    <img src="../../assets/images/logo/office-people-logo.png" width="100px" height="100px" style="margin-left:38%">
             <div class="row">
               <div class="input-field col s12">
@@ -43,9 +43,6 @@
               <div class="input-field col s6 m6 l6">
                 <p class="margin medium-small"><a href="https://officepeopleapp.com/#requestdemo" target="new">Register
                     Now!</a></p>
-              </div>
-              <div class="input-field col s6 m6 l6">
-                <p class="margin right-align medium-small"><a href="#">Forgot password ?</a></p>
               </div>
             </div>
           </form>

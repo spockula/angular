@@ -48,6 +48,8 @@ import {FileSelectDirective} from 'ng2-file-upload';
 import { MoreComponent } from './more/more.component';
 import { CheckComponent } from './check/check.component';
 import { UpdateComponent } from './update/update.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 
 @NgModule({
@@ -81,6 +83,8 @@ import { UpdateComponent } from './update/update.component';
     MoreComponent,
     CheckComponent,
     UpdateComponent,
+    ResetPasswordComponent,
+    WelcomeComponent,
   ],
   imports: [
     ReactiveFormsModule,
