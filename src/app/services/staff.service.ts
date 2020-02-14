@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 
@@ -17,7 +17,7 @@ export class StaffService {
   }
 
   createStaff(staff) {
-    return this.httpClient.post(`${this.test}/staff/`, staff);
+    return this.httpClient.post(`${this.API_URL}/staff/`, staff);
   }
 
   getStaffId(staffId) {
@@ -40,8 +40,16 @@ export class StaffService {
     return this.httpClient.post(`${this.API_URL}/staff/file/${companyId}`, csv);
   }
 
-  newPassword(body): Observable<any> {
-    return this.httpClient.post(`${this.API_URL}/new-password`, body);
+  newPassword(body: Object) {
+    return this.httpClient.post(`${this.test}/requestpassword`, body);
+  }
+
+  updatePassword(staffId, body): Observable<any> {
+    return this.httpClient.post(`${this.API_URL}/register/staff/${staffId}`, body);
+  }
+
+  checkToken(token, body): Observable<any> {
+    return this.httpClient.get(`${this.test}/reset-password?token=${token}`, body);
   }
 
 }

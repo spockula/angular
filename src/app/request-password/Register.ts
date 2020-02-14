@@ -1,6 +1,6 @@
 export class Register {
-  passcode?: string;
-  confirm?: string;
+  email?: string;
+  type?: string;
 
   constructor() {
 

@@ -50,6 +50,7 @@ import { CheckComponent } from './check/check.component';
 import { UpdateComponent } from './update/update.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { RequestPasswordComponent } from './request-password/request-password.component';
 
 
 @NgModule({
@@ -85,6 +86,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
     UpdateComponent,
     ResetPasswordComponent,
     WelcomeComponent,
+    RequestPasswordComponent,
   ],
   imports: [
     ReactiveFormsModule,

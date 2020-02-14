@@ -21,7 +21,6 @@ export class UpdateComponent implements OnInit {
   IsResetFormValid = true;
   errorPassword: string;
   ResetPassword: any;
-  queryParams: Params;
   staffId: string;
 
   constructor(private ngxService: NgxUiLoaderService,
@@ -42,9 +41,8 @@ export class UpdateComponent implements OnInit {
     console.log(this.ResponseResetForm['passcode']);
       if (this.ResponseResetForm['confirm'] === this.ResponseResetForm['passcode']) {
         this.ResetPassword = this.ResponseResetForm['passcode'];
-        this.staffService.newPassword({
-          staffId: this.staffId,
-          password: this.ResetPassword
+        this.staffService.updatePassword(this.staffId, {
+          passcode: this.ResetPassword
         }).subscribe(
           data => {
             registerForm.resetForm();

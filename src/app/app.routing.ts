@@ -26,6 +26,7 @@ import { CheckComponent } from './check/check.component';
 import { UpdateComponent } from './update/update.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { RequestPasswordComponent } from './request-password/request-password.component';
 
 
 const appRoutes: Routes = [
@@ -50,8 +51,9 @@ const appRoutes: Routes = [
   { path: 'more', component: MoreComponent },
   { path: 'check', component: CheckComponent },
   { path: 'update/:staffId', component: UpdateComponent },
-  { path: 'reset', component: ResetPasswordComponent },
   { path: 'welcome', component: WelcomeComponent },
+  { path: 'request-password', component: RequestPasswordComponent },
+  { path: 'reset/:token', component: ResetPasswordComponent },
   // otherwise redirect to home
   { path: '**', component: NotFoundComponent }
 ];
