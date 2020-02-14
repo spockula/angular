@@ -53,7 +53,7 @@ const appRoutes: Routes = [
   { path: 'update/:staffId', component: UpdateComponent },
   { path: 'welcome', component: WelcomeComponent },
   { path: 'request-password', component: RequestPasswordComponent },
-  { path: 'reset/:token', component: ResetPasswordComponent },
+  { path: 'reset-password/:token', component: ResetPasswordComponent },
   // otherwise redirect to home
   { path: '**', component: NotFoundComponent }
 ];
