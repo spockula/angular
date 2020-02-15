@@ -28,8 +28,14 @@ export class UpdateComponent implements OnInit {
     private staffService: StaffService) {  }
 
   ngOnInit() {
-    this.staffId = this.route.snapshot.paramMap.get('staffId');
-    console.log('this is staffId', this.staffId);
+    this.route.queryParams
+      .filter(params => params.staffId)
+      .subscribe(params => {
+        console.log(params);
+
+        this.staffId = params.staffId;
+        console.log(this.staffId);
+      });
   }
 
 

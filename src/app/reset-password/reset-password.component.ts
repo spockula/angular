@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { StaffService } from './../services/staff.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import 'rxjs/add/operator/filter';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./reset-password.component.css']
 })
 export class ResetPasswordComponent implements OnInit {
-  token: string;
+  token: any;
   durationInSeconds: number;
 
 
@@ -20,13 +21,22 @@ export class ResetPasswordComponent implements OnInit {
     private staffService: StaffService, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    this.token = this.route.snapshot.paramMap.get('token');
+    this.route.queryParams
+      .filter(params => params.token)
+      .subscribe(params => {
+        console.log(params); // {order: "popular"}
+
+        this.token = params.token;
+        console.log(this.token); // popular
+      });
+
+
     console.log(this.token);
     this.checkValidate();
   }
 
   public checkValidate() {
-   this.staffService.checkToken(this.token, {
+   this.staffService.checkToken( this.token, {
      password: 'password'
    }).subscribe( data => {
      if ( data['message'] === 'validated') {

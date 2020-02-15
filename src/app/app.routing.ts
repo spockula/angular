@@ -50,10 +50,10 @@ const appRoutes: Routes = [
   { path: 'policy', component: PolicyComponent },
   { path: 'more', component: MoreComponent },
   { path: 'check', component: CheckComponent },
-  { path: 'update/:staffId', component: UpdateComponent },
+  { path: 'update', component: UpdateComponent },
   { path: 'welcome', component: WelcomeComponent },
   { path: 'request-password', component: RequestPasswordComponent },
-  { path: 'reset-password/:token', component: ResetPasswordComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
   // otherwise redirect to home
   { path: '**', component: NotFoundComponent }
 ];
