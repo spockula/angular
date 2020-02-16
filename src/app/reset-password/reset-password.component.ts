@@ -54,12 +54,12 @@ export class ResetPasswordComponent implements OnInit {
        this.successful = true;
        console.log('i got here');
       }
-      if ( data['message'] !== 'validated') {
-        this.openSnackBar();
-      // tslint:disable-next-line:no-unused-expression
-      this.router.navigate(['/login']);
-      }
-   });
+   }, err => {
+    console.log('this is error', err['error']['message']);
+    this.openSnackBar(err);
+  // tslint:disable-next-line:no-unused-expression
+  this.router.navigate(['/login']);
+  });
   }
 
   public async sendPassword(registerForm: NgForm) {
@@ -85,8 +85,8 @@ export class ResetPasswordComponent implements OnInit {
   }
 
 
-  openSnackBar() {
-    this._snackBar.open('Token expired or invalid', 'Failed', {
+  openSnackBar(err) {
+    this._snackBar.open(err['error']['message'], 'Failed', {
       duration: this.durationInSeconds * 1000
     });
   }
