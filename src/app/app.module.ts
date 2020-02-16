@@ -12,7 +12,7 @@ import { HomeComponent } from './home/home.component';
 
 
 import { routing } from './app.routing';
-import { AuthGuard } from './_guards ';
+import { AuthGuard } from './_guards';
 import { CompanyComponent } from './company/company.component';
 import { BranchComponent } from './branch/branch.component';
 import { LoginComponent } from './login/login.component';
@@ -39,7 +39,6 @@ import { CmrSidebarComponent } from './shared/cmr-sidebar/cmr-sidebar.component'
 import { LeaveComponent } from './leave/leave.component';
 import { AdminRegisterComponent } from './admin-register/admin-register.component';
 import { CompanyRegisterComponent } from './company-register/company-register.component';
-import { CmrStaffComponent } from './cmr-staff/cmr-staff.component';
 import { CmrBranchesComponent } from './cmr-branches/cmr-branches.component';
 import { CmrDepartmentComponent } from './cmr-department/cmr-department.component';
 import { CreateStaffComponent } from './create-staff/create-staff.component';
@@ -51,6 +50,8 @@ import { UpdateComponent } from './update/update.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { RequestPasswordComponent } from './request-password/request-password.component';
+import { CmrStaffComponent } from './cmr-staff /cmr-staff.component';
+
 
 
 @NgModule({

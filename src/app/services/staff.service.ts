@@ -45,7 +45,7 @@ export class StaffService {
   }
 
   updatePassword(staffId, body): Observable<any> {
-    return this.httpClient.post(`${this.API_URL}/register/staff/${staffId}`, body);
+    return this.httpClient.post(`${this.test}/register/staff/${staffId}`, body);
   }
 
   checkToken(token, body): Observable<any> {

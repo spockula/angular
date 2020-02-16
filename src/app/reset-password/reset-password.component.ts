@@ -55,10 +55,9 @@ export class ResetPasswordComponent implements OnInit {
        console.log('i got here');
       }
    }, err => {
+     this.successful = false;
     console.log('this is error', err['error']['message']);
     this.openSnackBar(err);
-  // tslint:disable-next-line:no-unused-expression
-  this.router.navigate(['/login']);
   });
   }
 
@@ -75,7 +74,10 @@ export class ResetPasswordComponent implements OnInit {
         }).subscribe( data => {
           console.log('this is data', data);
           this.successSnackBar();
-          this.router.navigate(['/login']);
+        }, err => {
+          console.log('this is error', err['error']['message']);
+          this.openSnackBar(err);
+        // tslint:disable-next-line:no-unused-expression
         });
         if (this.ResponseResetForm['confirm'] !== this.ResponseResetForm['passcode']) {
           this.errorPassword = 'Passwords do not match, try again';

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { StaffService } from './../services/staff.service';
 import { NgForm } from '@angular/forms';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
@@ -24,7 +23,7 @@ export class RequestPasswordComponent implements OnInit {
   ResetEmail: any;
   durationInSeconds: number;
 
-  constructor(private ngxService: NgxUiLoaderService, private router: Router,
+  constructor(private ngxService: NgxUiLoaderService,
     private staffService: StaffService, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
@@ -44,6 +43,10 @@ export class RequestPasswordComponent implements OnInit {
             this.FormValue = registerForm.value;
            this.successSnackBar();
             this.ngxService.stop();
+          }, err => {
+            setTimeout(() => {
+              this.timedOutSnackBar();
+            }, 7000);
           }
         );
   }
@@ -51,6 +54,12 @@ export class RequestPasswordComponent implements OnInit {
   successSnackBar() {
     this._snackBar.open('Check your email for link to update password', 'Success', {
       duration: this.durationInSeconds * 2000
+    });
+  }
+
+  timedOutSnackBar() {
+    this._snackBar.open('Request took too long. Possible network issue', 'Timed out', {
+      duration: this.durationInSeconds * 1000
     });
   }
 

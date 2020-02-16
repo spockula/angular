@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Router, ActivatedRoute, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { StaffService } from './../services/staff.service';
 import { NgForm } from '@angular/forms';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Register } from './Register';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -22,10 +23,11 @@ export class UpdateComponent implements OnInit {
   ResetPassword: any;
   staffId: string;
   token: any;
+  durationInSeconds: number;
 
   constructor(private ngxService: NgxUiLoaderService,
     private route: ActivatedRoute, private router: Router,
-    private staffService: StaffService) {  }
+    private staffService: StaffService, private _snackBar: MatSnackBar) {  }
 
   ngOnInit() {
     this.route.queryParams
@@ -34,8 +36,6 @@ export class UpdateComponent implements OnInit {
         console.log(params);
 
         this.staffId = params.staffId;
-        sessionStorage.setItem('staffId', this.staffId);
-        console.log(this.staffId);
       });
       // this.route.queryParams.filter(params => params.token)
       // .subscribe(params => {
@@ -55,22 +55,13 @@ export class UpdateComponent implements OnInit {
     console.log(this.ResponseResetForm['passcode']);
       if (this.ResponseResetForm['confirm'] === this.ResponseResetForm['passcode']) {
         this.ResetPassword = this.ResponseResetForm['passcode'];
-        const tempo = sessionStorage.getItem('staffId');
-        const fino = sessionStorage.getItem('token');
-        console.log('this is tempo', tempo);
-        console.log('this is fino', fino);
-        this.staffId = tempo;
-        this.token = fino;
+        console.log('this is staffId', this.staffId);
         this.staffService.updatePassword(this.staffId, {
           passcode: this.ResetPassword
         }).subscribe(
           data => {
-            this.staffService.submitPassword({
-              token: this.token,
-              passcode: this.ResetPassword
-            });
+            this.successSnackBar();
             registerForm.resetForm();
-            sessionStorage.clear(); // to entirely clear local storage
             this.ResponseResetForm = registerForm.value;
             this.successMessage = data.message;
             setTimeout(() => {
@@ -78,6 +69,8 @@ export class UpdateComponent implements OnInit {
               this.router.navigate(['welcome']);
             }, 3000);
             this.ngxService.stop();
+          }, err => {
+            this.problemSnackBar();
           }
         );
       }
@@ -87,6 +80,18 @@ export class UpdateComponent implements OnInit {
         this.ResponseResetForm = registerForm.value;
         this.ngxService.stop();
       }
+  }
+
+  successSnackBar() {
+    this._snackBar.open('Check your email for link to update password', 'Success', {
+      duration: this.durationInSeconds * 2000
+    });
+  }
+
+  problemSnackBar() {
+    this._snackBar.open('There was a problem on our end, we will fix this as soon as possible', 'Technical glitch', {
+      duration: this.durationInSeconds * 2000
+    });
   }
 
 }
