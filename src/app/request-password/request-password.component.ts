@@ -4,6 +4,7 @@ import { StaffService } from './../services/staff.service';
 import { NgForm } from '@angular/forms';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Register } from './Register';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 
@@ -21,9 +22,10 @@ export class RequestPasswordComponent implements OnInit {
   errorPassword: string;
   FormValue: any;
   ResetEmail: any;
+  durationInSeconds: number;
 
   constructor(private ngxService: NgxUiLoaderService, private router: Router,
-    private staffService: StaffService) { }
+    private staffService: StaffService, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
   }
@@ -40,14 +42,16 @@ export class RequestPasswordComponent implements OnInit {
           data => {
             registerForm.resetForm();
             this.FormValue = registerForm.value;
-            this.successMessage = 'Check Your Email For Password reset link.';
-            setTimeout(() => {
-              this.successMessage = null;
-              this.router.navigate(['/login']);
-            }, 3000);
+           this.successSnackBar();
             this.ngxService.stop();
           }
         );
+  }
+
+  successSnackBar() {
+    this._snackBar.open('Check your email for link to update password', 'Success', {
+      duration: this.durationInSeconds * 2000
+    });
   }
 
 
