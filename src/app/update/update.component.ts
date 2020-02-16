@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { StaffService } from './../services/staff.service';
 import { NgForm } from '@angular/forms';
-import { RegisterService } from './../services/register.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Register } from './Register';
 
@@ -66,6 +65,10 @@ export class UpdateComponent implements OnInit {
           passcode: this.ResetPassword
         }).subscribe(
           data => {
+            this.staffService.submitPassword({
+              token: this.token,
+              passcode: this.ResetPassword
+            });
             registerForm.resetForm();
             sessionStorage.clear(); // to entirely clear local storage
             this.ResponseResetForm = registerForm.value;

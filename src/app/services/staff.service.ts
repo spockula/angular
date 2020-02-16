@@ -52,4 +52,8 @@ export class StaffService {
     return this.httpClient.get(`${this.test}/reset-password?token=${token}`, body);
   }
 
+  submitPassword(body): Observable<any> {
+    return this.httpClient.post(`${this.test}/submit-password`, body);
+  }
+
 }
