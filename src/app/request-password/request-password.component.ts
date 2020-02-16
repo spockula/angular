@@ -43,6 +43,7 @@ export class RequestPasswordComponent implements OnInit {
             registerForm.resetForm();
             this.FormValue = registerForm.value;
            this.successSnackBar();
+           this.router.navigate(['/login']);
             this.ngxService.stop();
           }
         );
