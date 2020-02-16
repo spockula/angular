@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { StaffService } from './../services/staff.service';
 import { NgForm } from '@angular/forms';
 import { RegisterService } from './../services/register.service';
@@ -22,6 +22,7 @@ export class UpdateComponent implements OnInit {
   errorPassword: string;
   ResetPassword: any;
   staffId: string;
+  token: any;
 
   constructor(private ngxService: NgxUiLoaderService,
     private route: ActivatedRoute, private router: Router,
@@ -34,8 +35,16 @@ export class UpdateComponent implements OnInit {
         console.log(params);
 
         this.staffId = params.staffId;
+        sessionStorage.setItem('staffId', this.staffId);
         console.log(this.staffId);
       });
+      // this.route.queryParams.filter(params => params.token)
+      // .subscribe(params => {
+      //  console.log(params);
+       // this.token = params.token;
+       // localStorage.setItem('token', this.token);
+       // console.log(this.token);
+      // });
   }
 
 
@@ -47,11 +56,18 @@ export class UpdateComponent implements OnInit {
     console.log(this.ResponseResetForm['passcode']);
       if (this.ResponseResetForm['confirm'] === this.ResponseResetForm['passcode']) {
         this.ResetPassword = this.ResponseResetForm['passcode'];
+        const tempo = sessionStorage.getItem('staffId');
+        const fino = sessionStorage.getItem('token');
+        console.log('this is tempo', tempo);
+        console.log('this is fino', fino);
+        this.staffId = tempo;
+        this.token = fino;
         this.staffService.updatePassword(this.staffId, {
           passcode: this.ResetPassword
         }).subscribe(
           data => {
             registerForm.resetForm();
+            sessionStorage.clear(); // to entirely clear local storage
             this.ResponseResetForm = registerForm.value;
             this.successMessage = data.message;
             setTimeout(() => {

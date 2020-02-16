@@ -14,6 +14,7 @@ import 'rxjs/add/operator/filter';
 export class ResetPasswordComponent implements OnInit {
   token: any;
   durationInSeconds: number;
+  staffId: any;
 
 
   constructor(private ngxService: NgxUiLoaderService,
@@ -39,13 +40,17 @@ export class ResetPasswordComponent implements OnInit {
    this.staffService.checkToken( this.token, {
      password: 'password'
    }).subscribe( data => {
+     this.staffId = data['staffId'];
      if ( data['message'] === 'validated') {
-       // tslint:disable-next-line:no-unused-expression
-       this.router.navigate['/update'];
-      }
-      this.openSnackBar();
+       sessionStorage.setItem('token', this.token);
+       sessionStorage.setItem('staffId', this.staffId);
+        // tslint:disable-next-line:no-unused-expression
+      this.router.navigate(['update/']);
+      } else {
+        this.openSnackBar();
       // tslint:disable-next-line:no-unused-expression
-      this.router.navigate['/login'];
+      this.router.navigate(['/login']);
+      }
    });
   }
 

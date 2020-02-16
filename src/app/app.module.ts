@@ -12,7 +12,7 @@ import { HomeComponent } from './home/home.component';
 
 
 import { routing } from './app.routing';
-import { AuthGuard } from './_guards';
+import { AuthGuard } from './_guards ';
 import { CompanyComponent } from './company/company.component';
 import { BranchComponent } from './branch/branch.component';
 import { LoginComponent } from './login/login.component';
