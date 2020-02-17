@@ -45,7 +45,7 @@ export class RequestPasswordComponent implements OnInit {
             this.ngxService.stop();
           }, err => {
             setTimeout(() => {
-              this.timedOutSnackBar();
+              this.timedOutSnackBar(err);
             }, 7000);
           }
         );
@@ -57,10 +57,10 @@ export class RequestPasswordComponent implements OnInit {
     });
   }
 
-  timedOutSnackBar() {
-    this._snackBar.open('Request took too long. Possible network issue', 'Timed out', {
-      duration: this.durationInSeconds * 1000
-    });
+  timedOutSnackBar(err) {
+   this._snackBar.open(err['error']['message'], 'Failed', {
+    duration: this.durationInSeconds * 1000
+  });
   }
 
 
