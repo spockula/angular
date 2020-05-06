@@ -1,0 +1,108 @@
+<div mat-dialog-content class="row">
+  <div class="col s12">
+    <div class="card">
+      <div class="card-content">
+        <h4 style= "text-align: center;">Upload Staff Sheet Instead (CSV or Excel)</h4>
+         <h6> *Please it is highly recommended that the data uploaded to us is formatted according to the template. To ensure smooth upload of staff data, please download the template excel sheet
+       (if you have not done so), and input your staff details and then upload. </h6>
+       <br>
+       <br>
+
+     <span>
+      <h6> Preview Data: </h6>
+        <input type="file" class="upload" (change)="chooseFile($event)">
+        <button class="btn cyan waves-effect waves-light right" (click)="downloadFile()" >
+       <i class="material-icons left">cloud</i>
+        Download Excel Template</button> <br>
+        </span>
+
+        <br>
+
+        <br>
+
+      <div  style="overflow-x: scroll; overflow: scroll;" >
+      <table class="display">
+      <thead>
+                <tr>
+                <th>*Surname</th>
+                <th>*Othernames</th>
+                <th>*Company</th>
+                <th>*Branch</th>
+                <th>*Email</th>
+                <th>*phone No</th>
+                <th>*Gender</th>
+                <th>*Role</th>
+                <th>*Department</th>
+                <th>*Date of Birth</th>
+                <th>*Date Joined</th>
+                <th>Line Manager</th>
+                <th>REporting Line ID</th>
+                <th>About</th>
+                <th>*Branch ID</th>
+                <th>HR ID</th>
+                <th>Department ID</th>
+                <th>Line Manager ID</th>
+                <th>Company ID</th>
+                </tr>
+              </thead>
+          <tbody>
+          <tr *ngFor="let obj of savedData['Sheet1']">
+            <td > {{obj.Surname}} </td>
+            <td> {{obj.Othernames}} </td>
+            <td>  {{obj.Company}} </td>
+            <td>  {{obj.Branch}} </td>
+            <td>  {{obj.Email}} </td>
+            <td>   {{obj.PhoneNo}} </td>
+            <td>  {{obj.Gender}} </td>
+            <td>  {{obj.Role}} </td>
+            <td>  {{obj.Department}} </td>
+            <td>  {{obj.Date_of_Birth}} </td>
+            <td>  {{obj.Date_Joined}} </td>
+            <td>  {{obj.Line_Manager}} </td>
+            <td>  {{obj.Reporting_Lines_ids}}</td>
+            <td>   {{obj.About}}</td>
+            <td>   {{obj.branchId}}</td>
+            <td>   {{obj.hr_id}}</td>
+            <td>  {{obj.departmentId}}</td>
+            <td>   {{obj.Line_Manager_Id}}</td>
+            <td>   {{obj.companyId}}</td>
+
+
+          </tr>
+          </tbody>
+      </table>
+    </div>
+    *columns marked in asteriks are required.
+
+    <h6> Please confirm that data in the sheet as displayed above is properly filled as given in the Excel template before upload. </h6>
+
+
+        <br>
+
+        <br>
+
+ <div>
+  <button class="btn cyan waves-effect waves-light right" (click)="selectFile.click()">
+                  <i class="material-icons left">add_circle_outline</i>
+                  Select File and Upload
+                </button>
+                <!--    -->
+  </div >
+  <form  #form class="col s12"(ngSubmit)="uploadFile(form)" novalidate>
+
+<div class="row">
+            <div class="row">
+              <div class="input-field col s12">
+                <input style="display: none" type="file" (change)="uploadFile($event)" #selectFile>
+              </div>
+            </div>
+          </div>
+
+
+  </form >
+
+  </div>
+   </div>
+   </div>
+  </div>
+

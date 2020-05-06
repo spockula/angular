@@ -38,17 +38,23 @@
 
                   <div class="row">
                     <div class="input-field col s12">
-                      <input placeholder="Company ID" formControlName="companyId" type="text" class="form-control"
-                        name="companyId" id="companyId">
-                      <label for="companyId">Company ID</label>
+                      <mat-label>Company</mat-label>
+                      <mat-select formControlName="companyId">
+                        <mat-option *ngFor="let company of companies" [value]="company['companyId']">
+                          {{company['company_name']}}
+                        </mat-option>
+                      </mat-select>
                     </div>
                   </div>
 
                   <div class="row">
                     <div class="input-field col s12">
-                      <input placeholder="Branch ID" formControlName="branchId" type="text" class="form-control"
-                        name="branchId" id="branchId">
-                      <label for="branchId">Branch ID</label>
+                      <mat-label>Branch</mat-label>
+                      <mat-select formControlName="branchId">
+                        <mat-option *ngFor="let branch of branches" [value]="branch['branchId']">
+                          {{branch['branchName']}}
+                        </mat-option>
+                      </mat-select>
                     </div>
                   </div>
 
@@ -173,11 +179,14 @@
                     </div>
                   </div> -->
 
-                 <div class="row">
+                  <div class="row">
                     <div class="input-field col s12">
-                      <input placeholder="Department ID" formControlName="departmentId" type="text" class="form-control"
-                        name="departmentId" id="departmentId">
-                      <label for="departmentId">Department ID</label>
+                      <mat-label>Department</mat-label>
+                      <mat-select formControlName="departmentId">
+                        <mat-option *ngFor="let dept of departments" [value]="dept['departmentId']">
+                          {{dept['name']}}
+                        </mat-option>
+                      </mat-select>
                     </div>
                   </div>
 
@@ -216,123 +225,38 @@
 
         </div>
 
-
-        <div class="row">
-          <div class="col s12">
-            <div class="card">
-              <div class="card-content">
-                <h4 style= "text-align: center;">Upload Staff Sheet Instead (CSV or Excel)</h4>
-                 <h6> *Please it is highly recommended that the data uploaded to us is formatted according to the template. To ensure smooth upload of staff data, please download the template excel sheet 
-               (if you have not done so), and input your staff details and then upload. </h6>
-               <br>
-               <br>
-               <form class="col s12" [formGroup] = "form" novalidate>
-
-              <span>
-              <h6> Preview Data: </h6> <br>
-                <input #myInput type="file" class="upload" (change)="chooseFile($event)">
-              <button class="btn cyan waves-effect waves-light right" (click)="downloadFile()" >
-               <i class="material-icons left">cloud</i>
-                Download Excel Template</button>
-                </span>
-
-                <br>
-
-                <br>
-
-              <div  style="overflow-x: scroll;" >
-              <table class="display">
-              <thead>
-                        <tr>
-                          <th>Surname</th>
-                        <th>Othernames</th>
-                        <th>Company</th>
-                        <th>Branch</th>
-                        <th>Email</th>
-                        <th>phone No</th>
-                        <th>Gender</th>
-                        <th>Role</th>
-                        <th>Department</th>
-                        <th>Date of Birth</th>
-                        <th>Date Joined</th>
-                        <th>Line Manager</th>
-                        <th>REporting Line ID</th>
-                        <th>About</th>
-                        <th>Branch ID</th>
-                        <th>HR ID</th>
-                        <th>Department ID</th>
-                        <th>Line Manager ID</th>
-                        <th>Company ID</th>
-                        </tr>
-                      </thead>
-                  <tbody>
-                  <tr *ngFor="let obj of savedData['Sheet1']">
-                    <td > {{obj.Surname}} </td>
-                    <td> {{obj.Othernames}} </td>
-                    <td>  {{obj.Company}} </td>
-                    <td>  {{obj.Branch}} </td>
-                    <td>  {{obj.Email}} </td>
-                    <td>   {{obj.PhoneNo}} </td>
-                    <td>  {{obj.Gender}} </td>
-                    <td>  {{obj.Role}} </td>
-                    <td>  {{obj.Department}} </td>
-                    <td>  {{obj.Date_of_Birth}} </td>
-                    <td>  {{obj.Date_Joined}} </td>
-                    <td>  {{obj.Line_Manager}} </td>
-                    <td>  {{obj.Reporting_Lines_ids}}</td>
-                    <td>   {{obj.About}}</td>
-                    <td>   {{obj.branchId}}</td>
-                    <td>   {{obj.hr_id}}</td>
-                    <td>  {{obj.departmentId}}</td>
-                    <td>   {{obj.Line_Manager_Id}}</td>
-                    <td>   {{obj.companyId}}</td>
-
-
-                  </tr>
-                  </tbody>
-              </table>
-            </div>
-
-            <h6> Please confirm that data in the sheet as displayed above is properly filled as given in the Excel template before upload. </h6>
-
-
-                <br>
-
-                <br>
-
+              <h4 class="card-title">Upload CSV Instead:</h4>
+              <form class="col s12" [formGroup] = "form" (ngSubmit)="openDialog(form)" novalidate>
+                <span> Select Company and click on button below to continue </span>
 
                 <div class="row">
-                    <div class="input-field col s12">
-                      <input placeholder="Company ID" formControlName="companyId" type="text" class="form-control"
-                        name="companyId" id="companyId">
-                      <label for="companyId">Company ID</label>
-                    </div>
+                  <div class="input-field col s12">
+                    <mat-label>Company</mat-label>
+                    <mat-select formControlName="companyId">
+                      <mat-option *ngFor="let company of companies" [value]="company['companyId']">
+                        {{company['company_name']}}
+                      </mat-option>
+                    </mat-select>
                   </div>
-                   <span *ngIf="!form.value.companyId"> Company ID is Required. </span>
+                </div>
 
 
-         <div>
-          <button class="btn cyan waves-effect waves-light right" [disabled]="!form.value.companyId" (click)="selectFile.click()">
-                          <i class="material-icons left">add_circle_outline</i>
-                          Select File and Upload
-                        </button>
-          </div>
-
-        <div class="row">
+                  <div class="row">
                     <div class="row">
                       <div class="input-field col s12">
-                        <input style="display: none" type="file" (change)="uploadFile($event)" #selectFile>
+                        <button class="btn cyan waves-effect waves-light right"
+                          name="action" (click)="openDialog()" [disabled]="!companyId">
+                          <i class="material-icons left">add_circle_outline</i>
+                          Upload CSV Instead
+                        </button>
                       </div>
                     </div>
                   </div>
 
+              </form>
 
-          </form >
 
-          </div>
-           </div>
-           </div>
-            </div>
+
 
 
 

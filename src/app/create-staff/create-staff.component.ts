@@ -11,6 +11,8 @@ import { ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/map';
 import * as XLSX from 'xlsx';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {MatDialog} from '@angular/material/dialog';
+import { StaffModalComponent } from '../staff-modal/staff-modal.component';
 
 
 @Component({
@@ -47,10 +49,11 @@ export class CreateStaffComponent implements OnInit {
   departmentId = new FormControl('', Validators.required);
   staffs: any;
   savedData: any;
+  deptName: any;
 
 
-  constructor(private companyService: CompanyService,
-    private staffService: StaffService, private ngxService: NgxUiLoaderService,
+  constructor(private companyService: CompanyService, public dialog: MatDialog,
+    private staffService: StaffService, private ngxService: NgxUiLoaderService, public branchService: BranchService,
     private departmentService: DepartmentService, private _snackBar: MatSnackBar,
      private actr: ActivatedRoute, fb: FormBuilder, private httpClient: HttpClient) {
       this.form = fb.group({
@@ -85,10 +88,21 @@ export class CreateStaffComponent implements OnInit {
 
 
   ngOnInit() {
+    this.getStaff();
     if (localStorage.getItem('cu')) {
       this.companyId = JSON.parse(localStorage.getItem('cu'))['companyId'];
     }
-    this.getStaff();
+    this.getDepartments();
+    this.getBranches();
+  }
+
+  public getBranches() {
+    this.ngxService.start();
+    this.branchService.getCompanyBranches().subscribe((data: Array<object>) => {
+      this.branches = data['data'];
+      console.log('Branches => ', this.branches);
+      this.ngxService.stop();
+    });
   }
 
 
@@ -122,6 +136,15 @@ export class CreateStaffComponent implements OnInit {
       this.ngxService.stop();
     });
   }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(StaffModalComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
 
   uploadFile(event, form) {
     form = this.form;
@@ -175,8 +198,8 @@ export class CreateStaffComponent implements OnInit {
 
   public getDepartments() {
     this.departmentService.getCompanyDepartments().subscribe((data: Array<object>) => {
-      this.departments = data;
-      console.log(data);
+      this.departments = data['data'];
+      console.log('this is department', this.departments);
     });
   }
 

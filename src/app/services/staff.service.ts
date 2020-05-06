@@ -8,7 +8,6 @@ import { Observable } from 'rxjs';
 })
 export class StaffService {
   API_URL = environment.apiUrl;
-  test = 'https://peopleappapis.herokuapp.com/v1';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -41,19 +40,19 @@ export class StaffService {
   }
 
   newPassword(body: Object) {
-    return this.httpClient.post(`${this.test}/requestpassword`, body);
+    return this.httpClient.post(`${this.API_URL}/requestpassword`, body);
   }
 
   updatePassword(staffId, body): Observable<any> {
-    return this.httpClient.post(`${this.test}/register/staff/${staffId}`, body);
+    return this.httpClient.post(`${this.API_URL}/register/staff/${staffId}`, body);
   }
 
   checkToken(token, body): Observable<any> {
-    return this.httpClient.get(`${this.test}/reset-password?token=${token}`, body);
+    return this.httpClient.get(`${this.API_URL}/reset-password?token=${token}`, body);
   }
 
   submitPassword(body): Observable<any> {
-    return this.httpClient.post(`${this.test}/submit-password`, body);
+    return this.httpClient.post(`${this.API_URL}/submit-password`, body);
   }
 
 }

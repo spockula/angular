@@ -27,6 +27,9 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { WelcomeComponent } from './welcome/welcome.component';
 import { RequestPasswordComponent } from './request-password/request-password.component';
 import { CmrStaffComponent } from './cmr-staff /cmr-staff.component';
+import { StaffModalComponent } from './staff-modal/staff-modal.component';
+import { CmrStaffModalComponent } from './cmr-staff-modal/cmr-staff-modal.component';
+
 
 
 const appRoutes: Routes = [
@@ -54,6 +57,8 @@ const appRoutes: Routes = [
   { path: 'welcome', component: WelcomeComponent },
   { path: 'request-password', component: RequestPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
+  { path: 'staff-modal', component: StaffModalComponent },
+  { path: 'cmr-modal', component: CmrStaffModalComponent },
   // otherwise redirect to home
   { path: '**', component: NotFoundComponent }
 ];

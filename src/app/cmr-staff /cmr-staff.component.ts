@@ -10,6 +10,10 @@ import { ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/map';
 import * as XLSX from 'xlsx';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CompanyService } from '../services/company.service';
+import { BranchService } from '../services/branch.service';
+import { MatDialog} from '@angular/material/dialog';
+import { CmrStaffModalComponent } from '../cmr-staff-modal/cmr-staff-modal.component';
 
 @Component({
   selector: 'app-cmr-staff',
@@ -44,9 +48,9 @@ export class CmrStaffComponent implements OnInit {
   staffs: any;
   savedData: {};
 
-  constructor(private httpClient: HttpClient,
-    private staffService: StaffService, private ngxService: NgxUiLoaderService,
-    private departmentService: DepartmentService, private _snackBar: MatSnackBar,
+  constructor(private httpClient: HttpClient, private companyService: CompanyService,
+    private staffService: StaffService, private ngxService: NgxUiLoaderService, private branchService: BranchService,
+    private departmentService: DepartmentService, private _snackBar: MatSnackBar, public dialog: MatDialog,
      private actr: ActivatedRoute, fb: FormBuilder) {
       this.form = fb.group({
         'surname': this.surname,
@@ -84,8 +88,9 @@ export class CmrStaffComponent implements OnInit {
 
   // }
   ngOnInit() {
-     // this.getBranches();
-    // this.getDepartments()
+    this.getBranches();
+    this.getDepartments();
+    this.getCompanies();
     this.getStaff();
   }
 
@@ -93,6 +98,23 @@ export class CmrStaffComponent implements OnInit {
     this.staffService.getAllStaff().subscribe((data: Array<object>) => {
       this.allStaff = data;
       console.log(data);
+    });
+  }
+
+  public getBranches() {
+    this.branchService.getBranches().subscribe((data: Array<object>) => {
+      this.branches = data['data'];
+      console.log('this is branches', this.branches);
+    });
+  }
+
+  openDialog(companyId) {
+    companyId = this.form.value;
+    const dialogRef = this.dialog.open(CmrStaffModalComponent,  {
+      data: { companyId: companyId }, });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
     });
   }
 
@@ -169,10 +191,17 @@ uploadFile(event, form) {
 
 }
 
-  public getDepartments() {
-    this.departmentService.getCompanyDepartments().subscribe((data: Array<object>) => {
-      this.departments = data;
-      console.log(data);
+public getDepartments() {
+  this.departmentService.getDepartments().subscribe((data: Array<object>) => {
+    this.departments = data['data'];
+    console.log('this is departments', this.departments);
+  });
+}
+
+  public getCompanies() {
+    this.companyService.getCompanies().subscribe((data: Array<object>) => {
+      this.companies = data['data'];
+      console.log('this is companies', this.companies);
     });
   }
 

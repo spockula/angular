@@ -18,18 +18,27 @@ export class AnnouncementComponent implements OnInit {
   searchTerm: string;
   isDataAvail = false;
   form: FormGroup;
+  DOBstartDate = new Date(1990, 0, 1);
+  DateJoinedStartDate = new Date(2000, 0, 1);
   durationInSeconds: number;
+  companyId: any;
+  title: any;
+  date: any;
+  location: any;
+  images: any;
+  time: any;
 
 
   constructor(private announcementService: AnnouncementService, private _snackBar: MatSnackBar,
     private host: ElementRef<HTMLInputElement>, private companyService: CompanyService, public fb: FormBuilder) {
-      this.form = this.fb.group({
-        title: [''],
-        images: [null],
-        location: [''],
-        date: [''],
-        time: ['']
-      });
+      this.form = fb.group({
+        'companyId': this.companyId,
+        'title': this.title,
+        'date': this.date,
+        'location': this.location,
+        'images': this.images,
+        'time': this.time
+    });
      }
 
   ngOnInit() {
@@ -38,10 +47,9 @@ export class AnnouncementComponent implements OnInit {
   }
 
   public async getAllAnnouncements() {
-    this.announcementService.getCompanyAnnouncements().subscribe((data: Array<object>) => {
+    this.announcementService.getAnnouncements().subscribe((data: Array<object>) => {
       this.announcements = data['data'];
-      console.log('=>', data);
-      return this.announcements;
+      console.log('=>', this.announcements);
     }, err => {
       console.log(err);
     });
@@ -51,23 +59,19 @@ export class AnnouncementComponent implements OnInit {
   public getCompanies() {
     this.companyService.getCompanies().subscribe((data: Array<object>) => {
       this.companies = data['data'];
-      console.log(data);
+      console.log(this.companies);
     });
   }
 
-  public createAnouncement() {
+  public createAnnouncement() {
     const formData: any = new FormData();
-    let companyId = '';
-    if (localStorage.getItem('cu')) {
-      companyId = JSON.parse(localStorage.getItem('cu'))['companyId'];
-    }
     this.announcement.status = 'active';
     formData.append('title', this.form.get('title').value);
     formData.append('location', this.form.get('location').value);
     formData.append('date', this.form.get('date').value);
     formData.append('time', this.form.get('time').value);
     formData.append('images', this.form.get('images').value);
-    formData.append('companyId', companyId);
+    formData.append('companyId', this.form.get('companyId').value);
     formData.append('status', this.announcement.status);
     this.announcement = formData.value;
     this.announcementService.createAnnouncement(formData).subscribe((response) => {
@@ -81,13 +85,13 @@ export class AnnouncementComponent implements OnInit {
   }
 
   closeSnackBar() {
-    this._snackBar.open("Something went wrong! We could not create New Announcement ", "Error", {
+    this._snackBar.open('Something went wrong! We could not create New Announcement ', "Error", {
       duration: this.durationInSeconds * 1000
     })
   }
 
   openSnackBar() {
-    this._snackBar.open("Successfully Created New Announcement", "Created", {
+    this._snackBar.open('Successfully Created New Announcement', "Created", {
       duration: this.durationInSeconds * 1000
     })
   }

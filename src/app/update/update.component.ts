@@ -37,13 +37,7 @@ export class UpdateComponent implements OnInit {
 
         this.staffId = params.staffId;
       });
-      // this.route.queryParams.filter(params => params.token)
-      // .subscribe(params => {
-      //  console.log(params);
-       // this.token = params.token;
-       // localStorage.setItem('token', this.token);
-       // console.log(this.token);
-      // });
+
   }
 
 

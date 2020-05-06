@@ -1,150 +1,148 @@
+
+
 <app-top></app-top>
 <app-sidebar></app-sidebar>
-
 
 <!-- BEGIN: Page Main-->
 <div id="main">
   <div class="row">
     <div class="content-wrapper-before gradient-45deg-indigo-purple"></div>
-    <div class="breadcrumbs-dark pb-0 pt-4" id="breadcrumbs-wrapper">
-      <!-- Search for small screen-->
-      <div class="container">
-          <ngx-ui-loader></ngx-ui-loader>
-        <div class="row">
-          <div class="col s10 m6 l6">
-            <h5 class="breadcrumbs-title mt-0 mb-0">Announcement</h5>
-            <ol class="breadcrumbs mb-0">
-              <li class="breadcrumb-item"><a href="/">Office People</a>
-              </li>
-              <li class="breadcrumb-item"><a href="/">Human Resources</a>
-              </li>
-              <li class="breadcrumb-item active">Announcement
-              </li>
-            </ol>
-          </div>
-
-        </div>
-      </div>
-    </div>
-    <div class="col s12">
-      <div class="container">
-
-        <div class="row">
-
-          <div class="col s12 m6 l6">
-            <div id="placeholder" class="card card card-default scrollspy">
-              <div class="card-content">
-                <h4 class="card-title">Create New Announcement</h4>
-                <form class="col s12" [formGroup]="form" (ngSubmit)="createAnouncement()" novalidate>
-
-<!--
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <select id="companyId" [(ngModel)]="announcementData.companyId" name="companyId">
-                        <option value="" disabled selected>Choose your Company</option>
-                        <option *ngFor="let coy of companies['data']" [ngValue]="coy.companyId">{{coy.company_name}}
-                        </option>
-                      </select>
-                      <label for="branchId">Company</label>
-                    </div>
-                  </div> -->
-
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <input placeholder="Title" type="text" class="form-control" formControlName="title" id="title">
-                      <label for="title">Title</label>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <input placeholder="Location" type="text" class="form-control" formControlName="location" id="location">
-                      <label for="location">Location</label>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <input placeholder="date" type="text" class="form-control" formControlName="date" id="date">
-                      <label for="date">Date</label>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <input placeholder="time" type="text" class="form-control" formControlName="time" id="time">
-                      <label for="time">Time</label>
-                    </div>
-                  </div>
-
-                  <div>
-                    <input type="file" id="images" (change)="uploadFile($event)" #fileInput>
-                  </div>
-
-
-                  <div class="row">
+                <div class="breadcrumbs-dark pb-0 pt-4" id="breadcrumbs-wrapper">
+                  <!-- Search for small screen-->
+                  <div class="container">
                     <div class="row">
-                      <div class="input-field col s12">
-                        <button class="btn cyan waves-effect waves-light right" type="submit" name="action">
-                          <i class="material-icons left">add_circle_outline</i>
-                          Add Announcement
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-
-
-        <div class="row">
-          <div class="col s12">
-            <div class="card">
-              <div class="card-content">
-                <h4 class="card-title">Your Announcements</h4>
-                <div class="row">
-                  <div class="col s12">
-                    <table id="page-length-option" class="display">
-                      <thead>
-                        <tr>
-                          <th>Title</th>
-                        <th>Location</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let announcement of announcements">
-                          <td>{{announcement.title}}</td>
-                          <td>{{announcement.location}}</td>
-                          <td>{{announcement.date}}</td>
-                          <td>{{announcement.time}}</td>
-                        </tr>
-                      </tbody>
-                      <tfoot>
-                        <tr>
-                          <th>Title</th>
-                        <th>Location</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        </tr>
-                      </tfoot>
-                    </table>
+                        <div class="col s10 m6 l6">
+                              <h5 class="breadcrumbs-title mt-0 mb-0">Department</h5>
+                              <ol class="breadcrumbs mb-0">
+                                    <li class="breadcrumb-item"><a href="/">Office People</a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="/">Settings</a>
+                                    </li>
+                                    <li class="breadcrumb-item active">Department
+                                    </li>
+                              </ol>
+                        </div>
+                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
+                <div class="col s12">
+                    <div class="container">
+                            <ngx-ui-loader></ngx-ui-loader>
+                        <div class="row">
+                            <div class="col s12 m6 l6">
+                                <div id="placeholder" class="card card card-default scrollspy">
+                                    <div class="card-content">
+                                          <h4 class="card-title">Create New Department</h4>
+                                          <form class="col s12" [formGroup]="form" (ngSubmit)="createAnnouncement()" novalidate>
+                                              <div class="row">
+                                                <div class="input-field col s12">
+                                                  <mat-label>Company</mat-label>
+                                                  <mat-select formControlName="companyId">
+                                                    <mat-option *ngFor="let company of companies" [value]="company['companyId']">
+                                                      {{company['company_name']}}
+                                                    </mat-option>
+                                                  </mat-select>
+                                                </div>
+                                              </div>
+                                              <div class="row">
+                                                <div class="input-field col s12">
+                                                  <input placeholder="Title" type="text" class="form-control" formControlName="title" id="title">
+                                                  <label for="title">Title</label>
+                                                </div>
+                                              </div>
+                                              <div class="row">
+                                                <div class="input-field col s12">
+                                                  <input placeholder="Location" type="text" class="form-control" formControlName="location" id="location">
+                                                  <label for="location">Location</label>
+                                                </div>
+                                              </div>
+                                              <div class="row">
+                                                <div class="input-field col s12">
+                                                  <input placeholder="date" type="text" class="form-control" formControlName="date" id="date">
+                                                  <label for="date">Date</label>
+                                                </div>
+                                              </div>
+                                              <div class="row">
+                                                  <div class="input-field col s12">
+                                                      <div class="col">
+                                                          <input matInput [matDatepicker]="picker"
+                                                          placeholder="Date of Birth" formControlName="date"
+                                                        name="date" id="date">
+                                                      </div>
+                                                      <div class="col">
+                                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                        <mat-datepicker #picker startView="year" [startAt]="DOBstartDate"></mat-datepicker>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="row">
+                                                <div class="input-field col s12">
+                                                  <input placeholder="time" type="text" class="form-control" formControlName="time" id="time">
+                                                  <label for="time">Time</label>
+                                                </div>
+                                              </div>
+                                              <div>
+                                                <input type="file" id="images" (change)="uploadFile($event)" #fileInput>
+                                              </div>
+                                              <div class="row">
+                                                <div class="input-field col s12">
+                                                  <button class="btn cyan waves-effect waves-light right" type="submit" name="action">
+                                                    <i class="material-icons left">add_circle_outline</i>
+                                                    Add Announcement
+                                                  </button>
+                                                </div>
+                                              </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="row">
+                      <div class="col s12">
+                        <div class="card">
+                          <div class="card-content">
+                            <h4 class="card-title">Your Announcements</h4>
+                            <div class="row">
+                              <div class="col s12">
+                                <table id="page-length-option" class="display">
+                                  <thead>
+                                    <tr>
+                                      <th>Title</th>
+                                    <th>Location</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr *ngFor="let announcement of announcements">
+                                      <td>{{announcement.title}}</td>
+                                      <td>{{announcement.location}}</td>
+                                      <td>{{announcement.date}}</td>
+                                      <td>{{announcement.time}}</td>
+                                    </tr>
+                                  </tbody>
+                                  <tfoot>
+                                    <tr>
+                                      <th>Title</th>
+                                    <th>Location</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    </tr>
+                                  </tfoot>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+          </div>
       </div>
-    </div>
-  </div>
-</div>
+
 <!-- END: Page Main-->
 
 

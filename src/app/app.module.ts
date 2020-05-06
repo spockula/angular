@@ -43,7 +43,7 @@ import { CmrBranchesComponent } from './cmr-branches/cmr-branches.component';
 import { CmrDepartmentComponent } from './cmr-department/cmr-department.component';
 import { CreateStaffComponent } from './create-staff/create-staff.component';
 import { PolicyComponent } from './policy/policy.component';
-import {FileSelectDirective} from 'ng2-file-upload';
+import { FileSelectDirective } from 'ng2-file-upload';
 import { MoreComponent } from './more/more.component';
 import { CheckComponent } from './check/check.component';
 import { UpdateComponent } from './update/update.component';
@@ -51,6 +51,9 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { WelcomeComponent } from './welcome/welcome.component';
 import { RequestPasswordComponent } from './request-password/request-password.component';
 import { CmrStaffComponent } from './cmr-staff /cmr-staff.component';
+import { MatSelectModule, MatDialog} from '@angular/material';
+import { StaffModalComponent } from './staff-modal/staff-modal.component';
+import { CmrStaffModalComponent } from './cmr-staff-modal/cmr-staff-modal.component';
 
 
 
@@ -88,6 +91,8 @@ import { CmrStaffComponent } from './cmr-staff /cmr-staff.component';
     ResetPasswordComponent,
     WelcomeComponent,
     RequestPasswordComponent,
+    StaffModalComponent,
+    CmrStaffModalComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -98,7 +103,16 @@ import { CmrStaffComponent } from './cmr-staff /cmr-staff.component';
     NgxUiLoaderModule,
     NgxUiLoaderRouterModule,
     NgxUiLoaderHttpModule, BrowserAnimationsModule,
-    MatDatepickerModule, MatFormFieldModule, MatNativeDateModule, MatInputModule
+    MatDatepickerModule, MatFormFieldModule, MatNativeDateModule, MatSelectModule, MatInputModule
+  ],
+  exports: [
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatDialog,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [AuthGuard, AlertService, MatSnackBar],
   bootstrap: [AppComponent]
