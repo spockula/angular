@@ -1,0 +1,7 @@
+{
+  "name": "officepeople",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
