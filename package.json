@@ -39,7 +39,7 @@
     "rxjs": "~6.5.3",
     "rxjs-compat": "6.4.0",
     "typescript": "~3.5.3",
-    "xlsx": "^0.15.2",
+    "xlsx": "^0.17.0",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
